@@ -1,0 +1,58 @@
+<p-card header="Instructor Login">
+    <form [formGroup]="frm" novalidate>
+        <div class="field">
+            <label for="email">Email * instructor@pulse.com / pulse</label>
+            <input
+                id="email"
+                type="email"
+                class="inputfield w-full"
+                pInputText
+                trim="blur"
+                formControlName="email"
+                maxlength="100"
+            />
+            <app-validation-message
+                refControlName="email"
+            ></app-validation-message>
+        </div>
+        <div class="field">
+            <label for="password">Password</label>
+            <input
+                id="password"
+                type="password"
+                class="inputfield w-full"
+                pInputText
+                trim="blur"
+                formControlName="password"
+                maxlength="100"
+            />
+            <app-validation-message
+                refControlName="password"
+            ></app-validation-message>
+        </div>
+        <div class="flex">
+            <button
+                (click)="signin()"
+                pButton
+                class="p-button-primary flex-grow-1"
+                label="Log In"
+            ></button>
+        </div>
+    </form>
+
+    <div class="divider mt-5 mb-4">OR</div>
+
+    <div class="flex justify-content-center m-2">Don't have an account?</div>
+
+    <div class="flex justify-content-center">
+        <button
+            (click)="register()"
+            type="button"
+            pButton
+            class="p-button-primary flex-grow-1"
+            label="Register Account"
+        ></button>
+    </div>
+</p-card>
+
+<app-block-ui [blocked]="processing"></app-block-ui>

@@ -1,0 +1,36 @@
+{
+    "app": {
+        "defaults": {
+            "errors": {
+                "CONNECTIONERROR": "Server conection terminated. Check network.",
+                "UNEXPECTEDERROR": "Unexpected error. Repeat operation or call administrator.",
+                "UNAUTHENTICATED": "Invalid credentials.",
+                "INVALIDDATA": "Data error.",
+                "RESOURCENOTFOUND": "Resource cannot be found.",
+                "OPERATIONCANNOTBEFINISHED": "Operation cannot be completed.",
+                "GATEWAYTIMEOUT": "Timeout error. Try to repeat operation.",
+                "FORBIDDEN": "Insufficient permissions."
+            },
+            "validations": {
+                "required": "Required field",
+                "email": "Invalid email",
+                "invalid": "Invalid value",
+                "notSame": "Passwords do not match",
+                "jsonInvalid": "JSON is invalid"
+            }
+        },
+        "forms": {
+            "profile": {
+                "validations": {
+                    "oldPassword_WrongPassword": "Wrong password",
+                    "newPassword_WrongPassword": "New password doesn't meet requirements"
+                }
+            },
+            "centers": {
+                "validations": {
+                    "name_DUPLICATED": "Center with given name already exists. Please choose unique name"
+                }
+            }
+        }
+    }
+}

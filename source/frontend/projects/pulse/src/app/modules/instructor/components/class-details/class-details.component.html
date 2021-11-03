@@ -1,0 +1,32 @@
+<h1>{{ editMode ? 'Rename Class' : 'Add Class' }}</h1>
+
+<form [formGroup]="frm" novalidate>
+    <div class="field">
+        <label for="name">Class name</label>
+        <input
+            id="class-name"
+            type="text"
+            class="inputfield w-full"
+            pInputText
+            trim="blur"
+            formControlName="name"
+            maxlength="100"
+        />
+        <app-validation-message refControlName="name"></app-validation-message>
+    </div>
+    <div class="flex">
+        <button
+            (click)="save()"
+            pButton
+            class="p-button-primary"
+            label="Save"
+        ></button>
+
+        <button
+            [routerLink]="'../'"
+            pButton
+            class="p-button-primary ml-2"
+            label="Cancel"
+        ></button>
+    </div>
+</form>

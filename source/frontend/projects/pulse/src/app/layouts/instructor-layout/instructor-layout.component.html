@@ -1,0 +1,32 @@
+<div class="flex flex-column min-h-screen">
+    <header>
+        <app-header-bar></app-header-bar>
+    </header>
+
+    <main class="flex flex-column flex-grow-1">
+        <router-outlet *ngIf="initialized"></router-outlet>
+    </main>
+
+    <!-- <footer>{{ version }}</footer> -->
+</div>
+
+<p-toast [style]="{ marginTop: '80px' }"></p-toast>
+<p-confirmDialog #cd header="Confirmation" icon="pi pi-info-circle">
+    <p-footer>
+        <button
+            type="button"
+            pButton
+            icon="pi pi-times"
+            class="p-button-secondary"
+            label="No"
+            (click)="cd.reject()"
+        ></button>
+        <button
+            type="button"
+            pButton
+            icon="pi pi-check"
+            label="Yes"
+            (click)="cd.accept()"
+        ></button>
+    </p-footer>
+</p-confirmDialog>

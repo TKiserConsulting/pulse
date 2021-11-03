@@ -1,0 +1,78 @@
+<form [formGroup]="frm" novalidate>
+    <p-card header="Create Instructor Account">
+        <div class="field">
+            <label for="email">Email</label>
+            <input
+                id="email"
+                type="email"
+                class="inputfield w-full"
+                pInputText
+                trim="blur"
+                formControlName="email"
+                maxlength="256"
+            />
+            <app-validation-message
+                refControlName="email"
+            ></app-validation-message>
+        </div>
+
+        <div class="field">
+            <label for="password">Password</label>
+            <input
+                id="password"
+                type="password"
+                class="inputfield w-full"
+                pInputText
+                trim="blur"
+                formControlName="password"
+                maxlength="50"
+            />
+            <app-validation-message
+                refControlName="password"
+            ></app-validation-message>
+        </div>
+
+        <div class="field">
+            <label for="firstName">First Name</label>
+            <input
+                id="firstName"
+                type="text"
+                class="inputfield w-full"
+                pInputText
+                trim="blur"
+                formControlName="firstName"
+                maxlength="50"
+            />
+            <app-validation-message
+                refControlName="firstName"
+            ></app-validation-message>
+        </div>
+
+        <div class="field">
+            <label for="lastName">Last Name</label>
+            <input
+                id="lastName"
+                type="text"
+                class="inputfield w-full"
+                pInputText
+                trim="blur"
+                formControlName="lastName"
+                maxlength="50"
+            />
+            <app-validation-message
+                refControlName="lastName"
+            ></app-validation-message>
+        </div>
+
+        <div class="flex">
+            <button
+                (click)="register()"
+                pButton
+                class="p-button-primary flex-grow-1"
+                label="Register New Account"
+            ></button>
+        </div>
+    </p-card>
+</form>
+
+<app-block-ui [blocked]="processing"></app-block-ui>

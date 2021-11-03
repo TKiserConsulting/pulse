@@ -1,0 +1,64 @@
+<div
+    *ngIf="items && items.length; else noClassesBlock"
+    class="flex flex-column"
+>
+    <div class="flex justify-content-between align-content-center">
+        <header class="flex align-items-center text-xl font-bold">
+            Classes
+        </header>
+        <div>
+            <p-button label="Add Class" [routerLink]="['add']"></p-button>
+        </div>
+    </div>
+
+    <div class="flex flex-row flex-wrap mt-3">
+        <div
+            *ngFor="let item of items"
+            class="
+                the-class
+                text-2xl
+                w-15rem
+                shadow-1
+                border-round
+                p-4
+                text-center
+                surface-100
+                mb-3
+                mr-3
+            "
+            (contextmenu)="showContextMenu(item, $event)"
+        >
+            {{ item.name }}
+        </div>
+    </div>
+</div>
+
+<p-contextMenu #contextMenu [model]="menuItems"> </p-contextMenu>
+
+<!-- <p-confirmPopup></p-confirmPopup> -->
+
+<ng-template #noClassesBlock>
+    <div
+        *ngIf="!loading"
+        class="
+            flex flex-column
+            justify-content-start
+            align-items-center
+            w-full
+            mt-4
+        "
+    >
+        <p class="font-light text-400 text-4xl">NO CLASSES DEFINED YET</p>
+        <div>
+            <button
+                pButton
+                type="button"
+                label="Add Class"
+                class="p-button-lg"
+                [routerLink]="['add']"
+            ></button>
+        </div>
+    </div>
+</ng-template>
+
+<app-block-ui [blocked]="processing"></app-block-ui>

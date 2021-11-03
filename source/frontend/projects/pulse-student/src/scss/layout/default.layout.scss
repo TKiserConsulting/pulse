@@ -1,0 +1,12 @@
+@import "abstracts/variables.scss";
+
+html,
+body,
+app-root {
+    // height: 100%;
+    // min-height: 100%;
+}
+
+body.layout-scroll-block {
+    overflow: hidden;
+}

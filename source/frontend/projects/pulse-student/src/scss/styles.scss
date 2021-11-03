@@ -1,0 +1,18 @@
+@import './main.scss';
+
+input.p-inputnumber-input.price {
+    opacity: 1;
+    font-weight: bold;
+}
+
+@media (max-width: 480px) {
+    .small-hide {
+        display: none;
+    }
+}
+
+@media (max-width: 1024px) {
+    .medium-hide {
+        display: none;
+    }
+}

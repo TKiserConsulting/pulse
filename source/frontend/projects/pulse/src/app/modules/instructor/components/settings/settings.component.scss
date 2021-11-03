@@ -1,0 +1,9 @@
+:host ::ng-deep .p-colorpicker .p-colorpicker-preview {
+    width: 5rem;
+    height: 5rem;
+    border-radius: 50%;
+}
+
+:host ::ng-deep .p-colorpicker input.p-colorpicker-preview {
+    opacity: 1;
+}

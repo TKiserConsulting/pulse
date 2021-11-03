@@ -1,0 +1,39 @@
+<div *ngIf="data; else loadingBlock" class="flex flex-column mt-2">
+    <div class="text-2xl">{{ title }}</div>
+
+    <div class="flex flex-column w-full mt-3">
+        <div class="text-l font-semibold mb-1">Emoticon Taps</div>
+        <p-chart
+            type="line"
+            [data]="chartData"
+            [options]="chartOptions"
+            class="w-full"
+        ></p-chart>
+    </div>
+
+    <div class="flex flex-column w-full mt-3">
+        <div class="text-l font-semibold mb-1">Questions</div>
+        <div class="flex">
+            <p-listbox
+                [options]="data.checkins"
+                [(ngModel)]="selectedCheckin"
+                optionLabel="name"
+                [style]="{ width: '15rem' }"
+                [listStyle]="{ 'max-height': '300px', height: '300px' }"
+                emptyMessage="No check-ins found"
+            ></p-listbox>
+            <!-- (onChange)="checkinSelected($event)" -->
+            <p-scrollPanel
+                [style]="{ width: '100%', height: '300px' }"
+                class="ml-3"
+            >
+                <p *ngFor="let q of selectedCheckin?.questions">
+                    {{ q.text }}
+                </p>
+            </p-scrollPanel>
+        </div>
+    </div>
+</div>
+<ng-template #loadingBlock>
+    <div class="w-full h-full p-10 text-5xl text-400">Loading...</div>
+</ng-template>

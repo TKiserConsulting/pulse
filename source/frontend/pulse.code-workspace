@@ -1,0 +1,45 @@
+{
+    "folders": [
+		{
+			"name": "Pulse-Sdk",
+			"path": "./projects/pulse-sdk"
+		},
+		{
+			"name": "Pulse",
+			"path": "./projects/pulse"
+		},
+		{
+			"name": "Pulse-Student",
+			"path": "./projects/pulse-student"
+		},
+		{
+			"name": "Solution items",
+			"path": "."
+		}
+	],
+    "settings": {
+		"remote.restoreForwardedPorts": true,
+		"files.exclude": {
+			"**/node_modules": true,
+			"**/dist": true,
+			"*.code-workspace": true,
+			"package-lock.json": true,
+			"**/projects": true
+		},
+		"eslint.validate": ["javascript", "typescript"],
+		"eslint.options": {
+			"extensions": [".js", ".ts"]
+		},
+		"editor.codeActionsOnSave": {
+			"source.fixAll.eslint": true,
+			"source.fixAll.stylelint": true
+		},
+		"css.validate": false,
+		"less.validate": false,
+		"scss.validate": false
+	},
+	"extensions": {
+		"recommendations": ["stylelint.vscode-stylelint", "angular.ng-template", "esbenp.prettier-vscode"]
+	},
+	"editor.formatOnSave": true,
+}

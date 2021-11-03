@@ -1,0 +1,6 @@
+@import "abstracts/variables";
+@import "normalize-scss/sass/normalize";
+
+$base-font-family: $fontFamily;
+
+@include normalize();

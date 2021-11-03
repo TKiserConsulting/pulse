@@ -1,0 +1,10 @@
+{
+    "extends": "../../tsconfig.json",
+    "compilerOptions": {
+        "paths": {
+            "@app/*": ["projects/pulse/src/app/*"],
+            "@env/*": ["projects/pulse/src/environments/*"],
+            "@pulse/sdk": ["dist/pulse-sdk"]
+        }
+    }
+}

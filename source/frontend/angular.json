@@ -1,0 +1,266 @@
+{
+    "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
+    "version": 1,
+    "newProjectRoot": "projects",
+    "projects": {
+        "pulse": {
+            "projectType": "application",
+            "schematics": {
+                "@schematics/angular:component": {
+                    "style": "scss"
+                },
+                "@schematics/angular:application": {
+                    "strict": true
+                }
+            },
+            "root": "projects/pulse",
+            "sourceRoot": "projects/pulse/src",
+            "prefix": "app",
+            "architect": {
+                "build": {
+                    "builder": "@angular-devkit/build-angular:browser",
+                    "options": {
+                        "outputPath": "dist/pulse",
+                        "index": "projects/pulse/src/index.html",
+                        "main": "projects/pulse/src/main.ts",
+                        "polyfills": "projects/pulse/src/polyfills.ts",
+                        "tsConfig": "projects/pulse/tsconfig.app.json",
+                        "inlineStyleLanguage": "scss",
+                        "assets": [
+                            "projects/pulse/src/favicon.ico",
+                            "projects/pulse/src/assets"
+                        ],
+                        "styles": ["projects/pulse/src/scss/styles.scss"],
+                        "stylePreprocessorOptions": {
+                            "includePaths": ["projects/pulse/src/scss"]
+                        },
+                        "scripts": ["node_modules/chart.js/dist/chart.min.js"]
+                    },
+                    "configurations": {
+                        "production": {
+                            "budgets": [
+                                {
+                                    "type": "initial",
+                                    "maximumWarning": "500kb",
+                                    "maximumError": "1mb"
+                                },
+                                {
+                                    "type": "anyComponentStyle",
+                                    "maximumWarning": "2kb",
+                                    "maximumError": "4kb"
+                                }
+                            ],
+                            "fileReplacements": [
+                                {
+                                    "replace": "projects/pulse/src/environments/environment.ts",
+                                    "with": "projects/pulse/src/environments/environment.prod.ts"
+                                }
+                            ],
+                            "outputHashing": "all"
+                        },
+                        "development": {
+                            "buildOptimizer": false,
+                            "optimization": false,
+                            "vendorChunk": true,
+                            "extractLicenses": false,
+                            "sourceMap": true,
+                            "namedChunks": true
+                        }
+                    },
+                    "defaultConfiguration": "production"
+                },
+                "serve": {
+                    "builder": "@angular-devkit/build-angular:dev-server",
+                    "options": {
+                        "browserTarget": "pulse:build",
+                        "proxyConfig": "projects/pulse/proxy.conf.json",
+                        "port": 4201
+                    },
+                    "configurations": {
+                        "production": {
+                            "browserTarget": "pulse:build:production"
+                        },
+                        "development": {
+                            "browserTarget": "pulse:build:development"
+                        }
+                    },
+                    "defaultConfiguration": "development"
+                },
+                "extract-i18n": {
+                    "builder": "@angular-devkit/build-angular:extract-i18n",
+                    "options": {
+                        "browserTarget": "pulse:build"
+                    }
+                },
+                "test": {
+                    "builder": "@angular-devkit/build-angular:karma",
+                    "options": {
+                        "main": "projects/pulse/src/test.ts",
+                        "polyfills": "projects/pulse/src/polyfills.ts",
+                        "tsConfig": "projects/pulse/tsconfig.spec.json",
+                        "karmaConfig": "projects/pulse/karma.conf.js",
+                        "inlineStyleLanguage": "scss",
+                        "assets": [
+                            "projects/pulse/src/favicon.ico",
+                            "projects/pulse/src/assets"
+                        ],
+                        "styles": ["projects/pulse/src/scss/styles.scss"],
+                        "stylePreprocessorOptions": {
+                            "includePaths": ["projects/pulse/src/scss"]
+                        },
+                        "scripts": []
+                    }
+                }
+            }
+        },
+        "pulse-student": {
+            "projectType": "application",
+            "schematics": {
+                "@schematics/angular:component": {
+                    "style": "scss"
+                },
+                "@schematics/angular:application": {
+                    "strict": true
+                }
+            },
+            "root": "projects/pulse-student",
+            "sourceRoot": "projects/pulse-student/src",
+            "prefix": "app",
+            "architect": {
+                "build": {
+                    "builder": "@angular-devkit/build-angular:browser",
+                    "options": {
+                        "outputPath": "dist/pulse-student",
+                        "index": "projects/pulse-student/src/index.html",
+                        "main": "projects/pulse-student/src/main.ts",
+                        "polyfills": "projects/pulse-student/src/polyfills.ts",
+                        "tsConfig": "projects/pulse-student/tsconfig.app.json",
+                        "inlineStyleLanguage": "scss",
+                        "assets": [
+                            "projects/pulse-student/src/favicon.ico",
+                            "projects/pulse-student/src/assets"
+                        ],
+                        "styles": [
+                            "projects/pulse-student/src/scss/styles.scss"
+                        ],
+                        "stylePreprocessorOptions": {
+                            "includePaths": ["projects/pulse-student/src/scss"]
+                        },
+                        "scripts": []
+                    },
+                    "configurations": {
+                        "production": {
+                            "budgets": [
+                                {
+                                    "type": "initial",
+                                    "maximumWarning": "500kb",
+                                    "maximumError": "1mb"
+                                },
+                                {
+                                    "type": "anyComponentStyle",
+                                    "maximumWarning": "2kb",
+                                    "maximumError": "4kb"
+                                }
+                            ],
+                            "fileReplacements": [
+                                {
+                                    "replace": "projects/pulse-student/src/environments/environment.ts",
+                                    "with": "projects/pulse-student/src/environments/environment.prod.ts"
+                                }
+                            ],
+                            "outputHashing": "all"
+                        },
+                        "development": {
+                            "buildOptimizer": false,
+                            "optimization": false,
+                            "vendorChunk": true,
+                            "extractLicenses": false,
+                            "sourceMap": true,
+                            "namedChunks": true
+                        }
+                    },
+                    "defaultConfiguration": "production"
+                },
+                "serve": {
+                    "builder": "@angular-devkit/build-angular:dev-server",
+                    "options": {
+                        "browserTarget": "pulse-student:build",
+                        "proxyConfig": "projects/pulse-student/proxy.conf.json",
+                        "port": 4201
+                    },
+                    "configurations": {
+                        "production": {
+                            "browserTarget": "pulse-student:build:production"
+                        },
+                        "development": {
+                            "browserTarget": "pulse-student:build:development"
+                        }
+                    },
+                    "defaultConfiguration": "development"
+                },
+                "extract-i18n": {
+                    "builder": "@angular-devkit/build-angular:extract-i18n",
+                    "options": {
+                        "browserTarget": "pulse-student:build"
+                    }
+                },
+                "test": {
+                    "builder": "@angular-devkit/build-angular:karma",
+                    "options": {
+                        "main": "projects/pulse-student/src/test.ts",
+                        "polyfills": "projects/pulse-student/src/polyfills.ts",
+                        "tsConfig": "projects/pulse-student/tsconfig.spec.json",
+                        "karmaConfig": "projects/pulse-student/karma.conf.js",
+                        "inlineStyleLanguage": "scss",
+                        "assets": [
+                            "projects/pulse-student/src/favicon.ico",
+                            "projects/pulse-student/src/assets"
+                        ],
+                        "styles": [
+                            "projects/pulse-student/src/scss/styles.scss"
+                        ],
+                        "stylePreprocessorOptions": {
+                            "includePaths": ["projects/pulse-student/src/scss"]
+                        },
+                        "scripts": []
+                    }
+                }
+            }
+        },
+        "pulse-sdk": {
+            "projectType": "library",
+            "schematics": {
+                "@schematics/angular:component": {
+                    "style": "scss"
+                },
+                "@schematics/angular:application": {
+                    "strict": true
+                }
+            },
+            "root": "projects/pulse-sdk",
+            "sourceRoot": "projects/pulse-sdk/src",
+            "prefix": "app",
+            "architect": {
+                "build": {
+                    "builder": "@angular-devkit/build-angular:ng-packagr",
+                    "options": {
+                        "tsConfig": "projects/pulse-sdk/tsconfig.lib.json",
+                        "project": "projects/pulse-sdk/ng-package.json"
+                    },
+                    "configurations": {
+                        "production": {
+                            "tsConfig": "projects/pulse-sdk/tsconfig.lib.prod.json"
+                        }
+                    }
+                },
+                "lint": {
+                    "builder": "@angular-eslint/builder:lint",
+                    "options": {
+                        "lintFilePatterns": ["projects/pulse-sdk/src/**/*.ts"]
+                    }
+                }
+            }
+        }
+    },
+    "defaultProject": "pulse"
+}

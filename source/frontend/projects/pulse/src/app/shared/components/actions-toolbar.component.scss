@@ -1,0 +1,37 @@
+@import "abstracts/variables.scss";
+
+
+$borderRadius: 4px;
+
+// $panelContentBorder: var(--panel-content-border);
+// $panelContentBgColor: var(--panel-content-bg-color);
+
+.app-actions-toolbar-wrap {
+    // background-color: $panelContentBgColor;
+    margin: 0.5rem 0;
+    // border: $panelContentBorder;
+    border-radius: $borderRadius;
+}
+
+.app-actions-toolbar-wrap app-pane {
+    width: 100%;
+    display: flex;
+    gap: 0.5rem;
+    align-items: center;
+}
+
+.app-actions-toolbar-wrap button {
+    min-width: 5rem;
+}
+
+.app-actions-toolbar-left,
+.app-actions-toolbar-right {
+    display: flex;
+    align-items: center;
+}
+
+@media (min-width: 1025px) {
+    .app-actions-toolbar-right app-pane {
+        justify-content: flex-end;
+    }
+}

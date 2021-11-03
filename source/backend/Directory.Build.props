@@ -1,0 +1,16 @@
+<Project>
+    <PropertyGroup>
+        <Configuration Condition="'$(Configuration)'==''">Release</Configuration>
+        <LangVersion>8</LangVersion>
+        <EnableAutomaticAssemblyInfo>true</EnableAutomaticAssemblyInfo>
+        <CodeAnalysisRuleSet>../../Pulse.ruleset</CodeAnalysisRuleSet>
+        <DebugType>portable</DebugType>
+        <IsWebConfigTransformDisabled>true</IsWebConfigTransformDisabled>
+        <SatelliteResourceLanguages>en</SatelliteResourceLanguages>
+	<UserSecretsId>91938ad4-3e21-4bd5-865f-1289b113e75a</UserSecretsId>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <AdditionalFiles Include="$(SolutionDir)stylecop.json" Link="stylecop.json"/>
+    </ItemGroup>
+</Project>

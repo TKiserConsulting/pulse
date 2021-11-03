@@ -1,0 +1,86 @@
+@import "abstracts/variables.scss";
+
+/* roboto-regular - latin */
+@font-face {
+    font-family: 'Roboto';
+    font-style: normal;
+    font-weight: 400;
+    src: url('./fonts/roboto-v27-latin-regular.eot'); /* IE9 Compat Modes */
+    src: local(''),
+         url('./fonts/roboto-v27-latin-regular.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
+         url('./fonts/roboto-v27-latin-regular.woff2') format('woff2'), /* Super Modern Browsers */
+         url('./fonts/roboto-v27-latin-regular.woff') format('woff'), /* Modern Browsers */
+         url('./fonts/roboto-v27-latin-regular.ttf') format('truetype'), /* Safari, Android, iOS */
+         url('./fonts/roboto-v27-latin-regular.svg#Roboto') format('svg'); /* Legacy iOS */
+}
+
+body, body .p-component {
+    font-family: Roboto;
+}
+
+input:read-only {
+    opacity: 0.5;
+    filter: alpha(opacity=50);
+}
+
+// buttons
+.p-button-primary {
+    background-color: $primaryColor;
+    border: 1px solid $primaryColor;
+
+    // text-transform: uppercase;
+    text-align: center;
+
+    padding: 0.429rem 1.5rem;;
+}
+
+// grid
+
+body .ui-table-list-default {
+
+    .ui-table-caption {
+        padding: 0.5rem;
+        // background-color: $panelContentBgColor;
+    }
+
+    th, .p-column-title {
+        text-transform: capitalize;
+    }
+
+    th:last-of-type {
+        width: 5rem;
+    }
+
+    td {
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    td.actions, td:last-of-type {
+        text-align: center;
+    }
+
+    @media screen and (max-width: 40em) {
+        .p-table-caption {
+            // background-color: $tableHeaderCellBgColor;
+        }
+
+        tbody {
+            // border-top: $tableBodyCellBorder !important;
+        }
+
+        tr td {
+            // border-left: $tableBodyCellBorder !important;
+            // border-right: $tableBodyCellBorder !important;
+        }
+    }
+}
+
+.p-paginator-bottom {
+    padding: 0.325rem 0;
+}
+
+// top menu
+.p-menubar .p-menubar-root-list > .p-menuitem {
+    padding: 0.325rem;
+}

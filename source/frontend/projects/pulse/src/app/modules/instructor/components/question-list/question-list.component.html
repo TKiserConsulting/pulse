@@ -1,0 +1,51 @@
+<p-dialog
+    header="Submitted Questions"
+    [modal]="true"
+    [draggable]="false"
+    [resizable]="false"
+    [(visible)]="display"
+    (onHide)="onHide()"
+    [blockScroll]="true"
+>
+    <div class="question-list">
+        <div
+            *ngFor="let item of questions"
+            class="border-bottom-1 border-400 p-2 flex justify-content-between"
+        >
+            <div class="flex flex-grow-1 align-items-center">
+                {{ item.text }}
+            </div>
+            <div class="min-w-max ml-2">
+                <button
+                    pButton
+                    pRipple
+                    type="button"
+                    icon="pi pi-times"
+                    class="p-button-rounded p-button-danger p-button-text"
+                    pTooltip="Dismiss"
+                    (click)="dismissQuestion(item)"
+                ></button>
+            </div>
+        </div>
+    </div>
+
+    <ng-template pTemplate="footer">
+        <button
+            pButton
+            type="button"
+            [label]="'End ' + getCheckinTitle()"
+            class="ml-2"
+            (click)="endCheckinClick()"
+        ></button>
+
+        <button
+            pButton
+            type="button"
+            label="Close"
+            class="ml-2"
+            (click)="display = false"
+        ></button>
+    </ng-template>
+</p-dialog>
+
+<app-block-ui [blocked]="processing"></app-block-ui>

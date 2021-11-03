@@ -1,0 +1,7 @@
+@import "abstracts/variables.scss";
+
+@mixin default-focus {
+    outline: none;
+    box-shadow: 0 0 2px 1px $primaryColor inset;
+    opacity: 0.999
+}

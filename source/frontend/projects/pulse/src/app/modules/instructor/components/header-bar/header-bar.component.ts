@@ -1,0 +1,49 @@
+import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { Identity } from '@app/shared/models/auth.models';
+import { AuthService } from '@app/shared/services/auth.service';
+import { MenuItem } from 'primeng/api';
+import { map } from 'rxjs';
+import { InstructorSessionService } from '../../services/instructor-session.service';
+
+@Component({
+    selector: 'app-header-bar',
+    templateUrl: './header-bar.component.html',
+    styleUrls: ['./header-bar.component.scss'],
+})
+export class HeaderBarComponent implements OnInit {
+    user: Identity | null = null;
+
+    menuItems: MenuItem[];
+
+    constructor(
+        private authService: AuthService,
+        private router: Router,
+        private sessionService: InstructorSessionService
+    ) {
+        this.menuItems = [
+            {
+                label: 'Profile',
+                command: () => this.navigateProfile(),
+            },
+            {
+                label: 'Sign Out',
+                command: () => this.router.navigate(['signout']),
+            },
+        ];
+
+        this.authService.identity$.subscribe((i) => {
+            this.user = i;
+        });
+    }
+
+    ngOnInit(): void {}
+
+    public getImageLink() {
+        return this.sessionService.profileImageTimestamp$;
+    }
+
+    navigateProfile() {
+        this.router.navigate(['instructor', 'profile'], { replaceUrl: true });
+    }
+}

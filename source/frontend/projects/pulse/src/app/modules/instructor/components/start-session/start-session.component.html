@@ -1,0 +1,33 @@
+<button
+    (click)="overlayPanel.toggle($event)"
+    pButton
+    class="p-button-primary white-space-nowrap mb-3"
+    label="Start a Session"
+></button>
+
+<p-overlayPanel #overlayPanel [showCloseIcon]="true" (onShow)="onShow()">
+    <ng-template pTemplate>
+        <h3>Select Class</h3>
+        <ng-container *ngIf="classes$ | async as classes; else loadingBlock">
+            <p-listbox
+                [options]="classes"
+                [(ngModel)]="selectedClass"
+                optionLabel="name"
+                [style]="{ width: '30rem' }"
+                [listStyle]="{ 'max-height': '300px', height: '300px' }"
+            ></p-listbox>
+            <div class="flex justify-content-end mt-2">
+                <button
+                    (click)="startSession()"
+                    pButton
+                    class="white-space-nowrap"
+                    label="Start Session"
+                    [disabled]="!selectedClass"
+                ></button>
+            </div>
+        </ng-container>
+        <ng-template #loadingBlock>
+            <div class="p-10 text-3xl text-400">Loading...</div>
+        </ng-template>
+    </ng-template>
+</p-overlayPanel>

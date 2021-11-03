@@ -1,0 +1,9 @@
+.emoticon button {
+    width: 100px;
+    height: 100px;
+}
+
+:host ::ng-deep .p-toast .p-toast-message .p-toast-message-content.tap-toast {
+    padding: 0;
+    margin: 0;
+}

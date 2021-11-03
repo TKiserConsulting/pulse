@@ -1,0 +1,67 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="Configuration\**" />
+    <Compile Remove="Extensions\**" />
+    <EmbeddedResource Remove="Configuration\**" />
+    <EmbeddedResource Remove="Extensions\**" />
+    <None Remove="Configuration\**" />
+    <None Remove="Extensions\**" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="5.0.0-rc.2.20475.6" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="5.0.0-rc.2.20475.6" />
+    <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="5.0.0-rc2" />
+    <PackageReference Include="StyleCop.Analyzers" Version="1.1.118">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.CodeAnalysis.FxCopAnalyzers" Version="3.3.0">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Remove="CommittableTransactionManager.cs" />
+    <Compile Remove="DefaultConnectionStringProvider.cs" />
+    <Compile Remove="IAsyncDbConnectionProvider.cs" />
+    <Compile Remove="Impl\AsyncDbConnectionProvider.cs" />
+    <Compile Remove="Impl\CommitableTransactionManager.cs" />
+    <Compile Remove="Impl\DefaultStoredProcedureConventions.cs" />
+    <Compile Remove="Impl\OracleConnectionFactory.cs" />
+    <Compile Remove="Impl\Repository.cs" />
+    <Compile Remove="IRepository.cs" />
+    <Compile Remove="IStoredProcedureConventions.cs" />
+    <Compile Remove="OracleConnectionFactory.cs" />
+    <Compile Remove="RepositoryExtension.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Include="Configuration\ApplicationDatabaseOptions.cs" />
+    <Compile Include="Configuration\ApplicationDatabaseProperties.cs" />
+    <Compile Include="Configuration\PersistenceCoreCompositionModule.cs" />
+    <Compile Include="Extensions\DbContextExtensions.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="DryIoc.dll" Version="4.5.0" />
+    <PackageReference Include="DryIoc.MefAttributedModel.dll" Version="6.0.2" />
+    <PackageReference Include="EnterpriseLibrary.ExceptionHandling.NetCore" Version="6.3.0" />
+    <PackageReference Include="Microsoft.Extensions.Configuration" Version="3.1.9" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.Binder" Version="3.1.9" />
+    <PackageReference Include="Microsoft.Extensions.Diagnostics.HealthChecks.Abstractions" Version="3.1.9" />
+    <PackageReference Include="Npgsql" Version="5.0.0-preview1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Webfarm.Sdk.AutoRegistration\Webfarm.Sdk.AutoRegistration.csproj" />
+    <ProjectReference Include="..\Webfarm.Sdk.Data\Webfarm.Sdk.Data.csproj" />
+    <ProjectReference Include="..\Webfarm.Sdk.Reflection\Webfarm.Sdk.Reflection.csproj" />
+  </ItemGroup>
+
+</Project>

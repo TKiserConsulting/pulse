@@ -1,0 +1,11 @@
+export { CheckinService } from './services/checkin.service';
+export { ClassesService } from './services/classes.service';
+export { EmoticonsService } from './services/emoticons.service';
+export { ProfilesService } from './services/profiles.service';
+export { QuestionsService } from './services/questions.service';
+export { ReportsService } from './services/reports.service';
+export { SessionsService } from './services/sessions.service';
+export { StudentsService } from './services/students.service';
+export { UsersService } from './services/users.service';
+export { AclService } from './services/acl.service';
+export { AuthenticationService } from './services/authentication.service';

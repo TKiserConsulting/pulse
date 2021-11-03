@@ -1,0 +1,48 @@
+<div class="text-2xl font-semibold pt-2">Reports</div>
+<div class="flex flex-column pt-3">
+    <div class="flex">
+        <div>
+            <div class="text-l font-semibold pb-1">Select a class</div>
+            <p-listbox
+                [options]="classes"
+                [(ngModel)]="selectedClass"
+                optionLabel="name"
+                [style]="{ width: '20rem' }"
+                [listStyle]="{ 'max-height': '400px', height: '400px' }"
+                (onChange)="classSelected($event)"
+                [emptyMessage]="
+                    loadingClasses ? 'Loading...' : 'No classes found'
+                "
+            ></p-listbox>
+        </div>
+        <div *ngIf="dates" class="ml-4">
+            <div class="text-l font-semibold pb-1">Select date</div>
+            <p-listbox
+                [options]="dates"
+                [(ngModel)]="selectedDate"
+                optionLabel="name"
+                [style]="{ width: '20rem' }"
+                [listStyle]="{ 'max-height': '400px', height: '400px' }"
+                [emptyMessage]="
+                    loadingDates ? 'Loading...' : 'No sessions found'
+                "
+            ></p-listbox>
+        </div>
+    </div>
+    <div class="flex justify-content-end mt-2">
+        <button
+            (click)="back()"
+            pButton
+            class="white-space-nowrap"
+            label="Close"
+        ></button>
+        <button
+            *ngIf="selectedClass"
+            (click)="showReport()"
+            pButton
+            class="white-space-nowrap ml-2"
+            label="View Report"
+            [disabled]="!selectedDate"
+        ></button>
+    </div>
+</div>

@@ -1,0 +1,96 @@
+<div *ngIf="session" class="flex flex-column m-4">
+    <div class="flex flex-wrap pt-3">
+        <div
+            *ngFor="let item of session.emoticons"
+            class="flex flex-column flex-grow-1 mb-5"
+            style="flex-basis: 100px"
+        >
+            <div class="flex justify-content-center">
+                {{ item.title }}
+            </div>
+            <div
+                class="emoticon flex justify-content-center p-3"
+                [style.color]="item.color | appColor"
+            >
+                <i class="pi pi-circle-on" style="font-size: 6rem"></i>
+                <!-- <svg viewBox="0 0 56 18">
+                    <text x="0" y="15">Fit Me</text>
+                </svg> -->
+            </div>
+            <div class="flex justify-content-center text-2xl">
+                {{ item.tapCount || '' }}
+            </div>
+        </div>
+    </div>
+    <div class="flex justify-content-between align-content-center w-full mt-1">
+        <div class="pl-23">
+            <p-button
+                type="button"
+                icon="pi pi-check"
+                (click)="checkinButtonsVisible = !checkinButtonsVisible"
+            ></p-button>
+            <p-badge
+                *ngIf="
+                    !checkinButtonsVisible &&
+                    session.activeCheckin?.questions?.length
+                "
+                class="ml-1"
+                [value]="getQuestionCount()"
+                severity="warning"
+            ></p-badge>
+            <ng-container *ngIf="checkinButtonsVisible">
+                <ng-container *ngIf="session.activeCheckin">
+                    <p-button
+                        type="button"
+                        label="Questions"
+                        [badge]="getQuestionCount()"
+                        class="ml-3"
+                        (click)="
+                            questionListComponent.show(session.activeCheckin)
+                        "
+                    ></p-button>
+                    <button
+                        pButton
+                        type="button"
+                        [label]="'End ' + getCheckinTitle()"
+                        class="ml-2"
+                        (click)="endCheckin()"
+                    ></button>
+                </ng-container>
+                <ng-container *ngIf="!session.activeCheckin">
+                    <button
+                        pButton
+                        type="button"
+                        label="Check In"
+                        class="ml-3"
+                        (click)="checkIn(true)"
+                    ></button>
+                    <button
+                        pButton
+                        type="button"
+                        label="Wrap Up"
+                        class="ml-2"
+                        (click)="checkIn(false)"
+                    ></button>
+                </ng-container>
+            </ng-container>
+        </div>
+        <button
+            pButton
+            type="button"
+            label="End Session"
+            badge="8"
+            (click)="confirmEndSession()"
+        ></button>
+    </div>
+    <div class="text-xl pt-6">
+        Session code: <span class="font-semibold">{{ session.code }}</span>
+    </div>
+
+    <app-question-list
+        #questionListComponent
+        (endCheckin)="endCheckin()"
+    ></app-question-list>
+</div>
+
+<app-block-ui [blocked]="processing"></app-block-ui>

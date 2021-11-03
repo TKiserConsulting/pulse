@@ -1,0 +1,76 @@
+{
+    "root": true,
+    "plugins": [
+        "@typescript-eslint",
+        "prettier"
+        // "@angular-eslint"
+    ],
+    "parserOptions": {
+        // "extraFileExtensions": [".html"],
+        "project": ["tsconfig.eslint.json"]
+    },
+    "extends": ["plugin:prettier/recommended"],
+    "rules": {
+        "prettier/prettier": [
+            "error",
+            {
+                "endOfLine": "auto"
+            }
+        ]
+    },
+    "overrides": [
+        {
+            "files": ["*.html"],
+            "rules": {
+                "max-len": "off"
+            }
+        },
+        {
+            "files": ["*.ts"],
+            "extends": [
+                "airbnb-typescript/base",
+                // "plugin:@typescript-eslint/recommended",
+                // "plugin:@typescript-eslint/recommended-requiring-type-checking",
+                "plugin:@angular-eslint/recommended",
+                "prettier/@typescript-eslint",
+                "plugin:prettier/recommended"
+            ],
+            "parser": "@typescript-eslint/parser",
+            "parserOptions": {
+                "ecmaVersion": 2020,
+                "sourceType": "module"
+            },
+            "rules": {
+                "@angular-eslint/directive-selector": [
+                    "error",
+                    { "type": "attribute", "prefix": "app", "style": "camelCase" }
+                ],
+                "@angular-eslint/component-selector": [
+                    "error",
+                    { "type": "element", "prefix": "app", "style": "kebab-case" }
+                ],
+                "@typescript-eslint/no-inferrable-types": "off",
+                "import/prefer-default-export": "off",
+                "class-methods-use-this": "off",
+                "max-classes-per-file": "off",
+                "no-param-reassign": "off"
+            }
+        }
+        /*,
+        {
+            "files": ["*.component.ts"],
+            "plugins": ["@angular-eslint/template"],
+            "processor": "@angular-eslint/template/extract-inline-html"
+        }
+        */
+        /*,
+        {
+            "files": ["*.component.html"],
+            "extends": [
+                "plugin:@angular-eslint/recommended",
+                "plugin:prettier/recommended"
+            ]
+        }
+        */
+    ]
+}

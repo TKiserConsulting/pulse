@@ -1,0 +1,59 @@
+<p-dialog
+    [header]="getCheckinTitle()"
+    [modal]="true"
+    [draggable]="false"
+    [resizable]="true"
+    [(visible)]="display"
+    minHeight="200px"
+    minWidth="400px"
+    height="auto"
+>
+    <form [formGroup]="frm" novalidate>
+        <div class="field">
+            <label for="text">Ask question</label>
+            <textarea
+                #textInput
+                id="text"
+                formControlName="text"
+                class="inputfield w-full pb-0 mb-0"
+                [rows]="4"
+                pInputTextarea
+                maxlength="500"
+            ></textarea>
+        </div>
+
+        <div class="flex">
+            <button
+                (click)="submit()"
+                pButton
+                class="p-button-primary flex-grow-1"
+                label="Submit Question"
+            ></button>
+        </div>
+    </form>
+    <div class="question-list mt-3 mb-3">
+        <div
+            *ngFor="let item of questions"
+            class="
+                mt-2
+                text-sm
+                flex
+                flew-wrap
+                border-1 border-400 border-round
+                p-2
+            "
+        >
+            {{ item.text }}
+        </div>
+    </div>
+</p-dialog>
+
+<p-toast position="bottom-center" key="question" [baseZIndex]="5000">
+    <ng-template let-message pTemplate="message">
+        <div class="flex flex-column flex-grow-1 text-center p-4 text-2xl">
+            {{ message.detail }}
+        </div>
+    </ng-template>
+</p-toast>
+
+<app-block-ui [blocked]="processing"></app-block-ui>

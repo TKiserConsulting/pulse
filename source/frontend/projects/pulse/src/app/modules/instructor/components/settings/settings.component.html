@@ -1,0 +1,45 @@
+<h1>Settings</h1>
+
+<p-card *ngIf="emoticons" header="">
+    <ng-template pTemplate="header">
+        <div class="text-xl font-semibold pl-3 pt-2">Edit Emoticons</div>
+    </ng-template>
+
+    <div *ngFor="let item of emoticons; let i = index" style="width: 500px">
+        <div class="formgrid grid">
+            <div class="field col-9 flex align-items-center">
+                <input
+                    [id]="item.id + '_title'"
+                    [(ngModel)]="model[item.id].title"
+                    type="text"
+                    class="inputfield w-full"
+                    pInputText
+                    trim="blur"
+                    maxlength="100"
+                />
+            </div>
+            <div class="field col ml-3">
+                <p-colorPicker
+                    [id]="item.id + '_color'"
+                    [(ngModel)]="model[item.id].color"
+                    format="hex"
+                    (onChange)="onColor($event)"
+                ></p-colorPicker>
+            </div>
+        </div>
+    </div>
+
+    <ng-template pTemplate="footer">
+        <button pButton type="button" label="Save" (click)="save()"></button>
+
+        <button
+            pButton
+            type="button"
+            label="Cancel"
+            class="ml-2"
+            (click)="cancel()"
+        ></button>
+    </ng-template>
+</p-card>
+
+<app-block-ui [blocked]="processing"></app-block-ui>

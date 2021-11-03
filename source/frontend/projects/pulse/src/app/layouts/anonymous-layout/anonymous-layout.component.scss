@@ -1,0 +1,30 @@
+@import "abstracts/variables.scss";
+
+:host {
+    & {
+        height: 100%;
+        min-height: 100%;
+        display: grid;
+        grid-template-columns: 1fr;
+        grid-template-rows: min-content 1fr;
+        grid-template-areas:
+            'header'
+            'main';
+            
+        background-color: white;
+    }
+
+    header, main {
+        justify-self: center;
+    }
+
+    header {
+        grid-area: header;
+        padding-top: 20vh;   
+    }
+
+    main {
+        grid-area: main;
+    }
+}
+

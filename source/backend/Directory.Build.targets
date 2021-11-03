@@ -1,0 +1,12 @@
+<Project>
+  <PropertyGroup Condition="$(EnableAutomaticAssemblyInfo)">
+    <Company>Pulse</Company>
+    <Product>Pulse</Product>
+    <Copyright>Copyright © 2021 Pulse</Copyright>
+    <BaseVersion Condition="'$(BaseVersion)'==''">1.0.0.0</BaseVersion>
+    <Version Condition="'$(Version)'==''">$(BaseVersion)</Version>
+    <InformationalVersion Condition="'$(InformationalVersion)'==''">$(Version)</InformationalVersion>
+    <AssemblyVersion Condition="'$(AssemblyVersion)'==''">$(BaseVersion)</AssemblyVersion>
+    <FileVersion Condition="'$(FileVersion)'==''">$(BaseVersion)</FileVersion>
+  </PropertyGroup>
+</Project>

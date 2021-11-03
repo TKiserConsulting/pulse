@@ -1,0 +1,62 @@
+<div *ngIf="session$ | async as session" class="flex flex-column m-4">
+    <div class="flex flex-wrap pt-3">
+        <div
+            *ngFor="let item of session.emoticons"
+            class="flex flex-column flex-grow-1"
+            style="flex-basis: 150px"
+        >
+            <div
+                class="emoticon flex justify-content-center p-3"
+                [style.color]="item.color"
+            >
+                <!-- <i class="pi pi-circle-on" style="font-size: 5rem"></i> -->
+                <!-- <svg viewBox="0 0 56 18">
+                    <text x="0" y="15">Fit Me</text>
+                </svg> -->
+                <button
+                    pButton
+                    pRipple
+                    type="button"
+                    icon="pi pi-check"
+                    class="p-button-rounded"
+                    [ngStyle]="getButtonStyle(item)"
+                    (click)="tap(item)"
+                ></button>
+            </div>
+            <div class="flex justify-content-center mb-3">
+                {{ item.title }}
+            </div>
+        </div>
+    </div>
+
+    <button
+        pButton
+        class="mt-4 ml-3"
+        type="button"
+        icon="pi pi-check"
+        iconPos="left"
+        [disabled]="!(activeCheckin$ | async)"
+        (click)="questionComponent.show()"
+    ></button>
+
+    <app-student-question #questionComponent></app-student-question>
+</div>
+
+<p-toast position="bottom-center" key="tap" [baseZIndex]="5000">
+    <ng-template let-message pTemplate="message">
+        <div
+            class="
+                flex flex-column flex-grow-1
+                text-center
+                p-4
+                text-4xl
+                font-bold
+            "
+            [ngStyle]="toastStyle"
+        >
+            {{ message.detail }}
+        </div>
+    </ng-template>
+</p-toast>
+
+<app-block-ui [blocked]="processing"></app-block-ui>

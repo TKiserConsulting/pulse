@@ -1,0 +1,48 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="Logging\**" />
+    <EmbeddedResource Remove="Logging\**" />
+    <None Remove="Logging\**" />
+    <Compile Remove="CompositionRoot.cs" />
+    <Compile Remove="MigratorApp.cs" />
+    <Compile Remove="OracleDatabaseTypeAttribute.cs" />
+    <Compile Remove="OracleUpdateStoredProcedures.cs" />
+    <Compile Remove="PostgresqlUpdateStoredProcedures.cs" />
+    <Compile Remove="Constants.cs" />
+    <Compile Remove="MigrationOptions.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Remove="Extensions\LoggingExtensions.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="FluentMigrator" Version="3.2.9" />
+    <PackageReference Include="FluentMigrator.Runner" Version="3.2.9" />
+    <PackageReference Include="Microsoft.Extensions.Hosting.Abstractions" Version="3.1.9" />
+    <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
+    <PackageReference Include="Npgsql" Version="5.0.0-preview1" />
+    <PackageReference Include="Serilog" Version="2.10.0" />
+    <PackageReference Include="Serilog.Extensions.Logging" Version="3.0.1" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="StyleCop.Analyzers" Version="1.1.118">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.CodeAnalysis.FxCopAnalyzers" Version="3.3.0">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Webfarm.Sdk.Common\Webfarm.Sdk.Common.csproj" />
+    <ProjectReference Include="..\Webfarm.Sdk.Persistence\Webfarm.Sdk.Persistence.csproj" />
+  </ItemGroup>
+
+</Project>

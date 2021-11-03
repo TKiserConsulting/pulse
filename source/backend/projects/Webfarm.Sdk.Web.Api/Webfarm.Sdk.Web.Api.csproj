@@ -1,0 +1,90 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="Controllers\**" />
+    <Compile Remove="Filters\**" />
+    <Compile Remove="Models\**" />
+    <EmbeddedResource Remove="Controllers\**" />
+    <EmbeddedResource Remove="Filters\**" />
+    <EmbeddedResource Remove="Models\**" />
+    <None Remove="Controllers\**" />
+    <None Remove="Filters\**" />
+    <None Remove="Models\**" />
+    <Compile Remove="Authorization\_GrantAuthorizationHandler.cs" />
+    <Compile Remove="Authorization\_GrantAuthorizationPolicyProvider.cs" />
+    <Compile Remove="Authorization\_GrantAuthorizationRequirement.cs" />
+    <Compile Remove="Authorization\_GrantAuthorizeAttribute.cs" />
+    <Compile Remove="Authorization\PermissionAttribute.cs" />
+    <Compile Remove="Authorization\PermissionAuthorizationHandler.cs" />
+    <Compile Remove="Authorization\PermissionAuthorizationRequirement.cs" />
+    <Compile Remove="Authorization\AttributeAuthorizationHandler.cs" />
+    <Compile Remove="Authentication\JwtAuthenticationHandler.cs" />
+    <Compile Remove="Authentication\XAuthAuthenticationHandler.cs" />
+    <Compile Remove="Authentication\**" />
+    <EmbeddedResource Remove="Authentication\**" />
+    <None Remove="Authentication\**" />
+    <Compile Remove="Extensions\SameSiteCookiesServiceCollectionExtensions.cs" />
+    <Compile Remove="Data\AuthenticationSettings.cs" />
+    <Compile Remove="Data\AuthenticationToken.cs" />
+    <Compile Remove="Extensions\HttpClientExtensions.cs" />
+    <Compile Remove="Data\HttpClientSettings.cs" />
+    <Compile Remove="Data\JwtIntegrationOptions.cs" />
+    <Compile Remove="Extensions\AuthenticationExtensions.cs" />
+    <Compile Remove="Extensions\ControllerExtensions.cs" />
+    <Compile Remove="Extensions\JsonPatchDocumentExtensions.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="3.1.9" />
+    <PackageReference Include="Microsoft.AspNetCore.DataProtection.StackExchangeRedis" Version="3.1.9" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="3.1.9" />
+    <PackageReference Include="Microsoft.Extensions.Http" Version="3.1.9" />
+    <PackageReference Include="Microsoft.Extensions.Http.Polly" Version="3.1.9" />
+      <PackageReference Include="Microsoft.FeatureManagement" Version="2.2.0" />
+      <PackageReference Include="StackExchange.Redis" Version="2.1.58" />
+    <PackageReference Include="StyleCop.Analyzers" Version="1.1.118">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.CodeAnalysis.FxCopAnalyzers" Version="3.3.0">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Remove="Bootstrap.cs" />
+    <Compile Remove="Extensions\BootstrapExtensions.cs" />
+    <Compile Remove="Extensions\HttpContextExtensions.cs" />
+    <Compile Remove="Extensions\WebApiCommonExtensions.cs" />
+    <Compile Remove="Middlewares\ErrorHandlingApiMiddleware.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Include="Filters\ApiTransactionAttribute.cs" />
+    <Compile Include="Filters\ApiTransactionAttribute.Custom.cs" />
+    <Compile Include="Filters\ResponseCodeAttribute.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="DryIoc.MefAttributedModel.dll" Version="6.0.2" />
+    <PackageReference Include="EnterpriseLibrary.ExceptionHandling.Logging.NetCore" Version="6.3.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.Versioning" Version="4.1.1" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.Versioning.ApiExplorer" Version="4.1.1" />
+    <PackageReference Include="Microsoft.IdentityModel.Tokens" Version="6.8.0" />
+    <PackageReference Include="NSwag.AspNetCore" Version="13.8.2" />
+    <PackageReference Include="Serilog" Version="2.10.0" />
+    <PackageReference Include="Serilog.Extensions.Logging" Version="3.0.1" />
+    <PackageReference Include="Serilog.Settings.Configuration" Version="3.1.0" />
+    <PackageReference Include="Shouldly" Version="3.0.2" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Webfarm.Sdk.Common\Webfarm.Sdk.Common.csproj" />
+    <ProjectReference Include="..\Webfarm.Sdk.Data\Webfarm.Sdk.Data.csproj" />
+  </ItemGroup>
+
+</Project>

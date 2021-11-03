@@ -1,0 +1,28 @@
+<div class="flex flex-grow-1">
+    <div class="flex flex-column justify-content-between shadow-1 p-3">
+        <div class="flex flex-column">
+            <app-start-session></app-start-session>
+
+            <hr class="w-full" />
+
+            <button
+                pButton
+                type="button"
+                label="Reports"
+                class="p-button-link mt-3 text-xl"
+                (click)="navigateReports()"
+            ></button>
+        </div>
+
+        <button
+            pButton
+            type="button"
+            label="Settings"
+            class="p-button-link mb-2 text-xl"
+            (click)="navigateSettings()"
+        ></button>
+    </div>
+    <div class="m-2 flex justify-content-start pl-3 w-full">
+        <router-outlet></router-outlet>
+    </div>
+</div>

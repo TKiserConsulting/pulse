@@ -1,0 +1,14 @@
+{
+    "$schema": "../../node_modules/ng-openapi-gen/ng-openapi-gen-schema.json",
+    "input": "http://localhost:5001/swagger/v1/swagger.json",
+    "templates": "./ng-openapi-templates",
+    "excludeTags": ["Config"],
+    "output": "./projects/pulse/src/app/api",
+    "prefix": "Api",
+    "ignoreUnusedModels": true,
+    "defaultTag": "Api",
+    "removeStaleFiles": true,
+    "modelIndex": true,
+    "serviceIndex": true,
+    "module": false
+}

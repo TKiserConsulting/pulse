@@ -1,0 +1,50 @@
+<p-card>
+    <form [formGroup]="frm" novalidate>
+        <div class="field">
+            <label for="sessionCode">Session Code</label>
+            <input
+                id="sessionCode"
+                type="text"
+                class="inputfield w-full"
+                pInputText
+                trim="blur"
+                formControlName="sessionCode"
+                maxlength="10"
+            />
+            <app-validation-message
+                refControlName="sessionCode"
+            ></app-validation-message>
+        </div>
+        <div class="flex">
+            <button
+                (click)="signin()"
+                pButton
+                class="p-button-primary flex-grow-1"
+                label="Join"
+            ></button>
+        </div>
+    </form>
+</p-card>
+
+<app-block-ui [blocked]="processing"></app-block-ui>
+
+<p-dialog
+    [modal]="true"
+    [draggable]="false"
+    [resizable]="false"
+    [closable]="false"
+    [closeOnEscape]="false"
+    [(visible)]="displaySessionEnded"
+    minWidth="400px"
+>
+    <p class="text-5xl p-6">Your session has ended</p>
+
+    <ng-template pTemplate="footer">
+        <button
+            pButton
+            type="button"
+            label="Exit"
+            (click)="closeSessionEndedDialog()"
+        ></button>
+    </ng-template>
+</p-dialog>

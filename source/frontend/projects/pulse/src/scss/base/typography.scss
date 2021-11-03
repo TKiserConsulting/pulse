@@ -1,0 +1,16 @@
+@import 'abstracts/variables.scss';
+@import 'utilities';
+
+*:focus {
+    @include default-focus();
+}
+
+body {
+    color: $textColor;
+    background-color: white;
+}
+
+h1,
+h2 {
+    font-size: 1.5em;
+}

@@ -1,0 +1,9 @@
+**/Dockerfile
+**/[B|b]in
+**/[O|o]bj
+**/[D|d]ist
+**/[L|l]ogs
+**/node_modules
+**/*.user
+**/.vs
+**/.idea
