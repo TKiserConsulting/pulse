@@ -13,7 +13,8 @@
         "lint": "npm run sdk-lint && npm run pulse-lint",
         "nghm": "node --max_old_space_size=4096 ./node_modules/@angular/cli/bin/ng",
         "build": "npm run nghm -- build",
-        "test": "ng test"
+        "test": "ng test",
+        "version": "npm version --no-git-tag-version --allow-same-version"
     },
     "private": true,
     "dependencies": {
