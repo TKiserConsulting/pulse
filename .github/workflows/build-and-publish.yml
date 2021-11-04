@@ -5,9 +5,9 @@ on:
   workflow_dispatch:
     branches: [master]
 
-  env:
-    DOCKER_REGISTRY: ghcr.io
-    DOCKER_IMAGE: tkiserconsulting/pulse
+env:
+  DOCKER_REGISTRY: ghcr.io
+  DOCKER_IMAGE: tkiserconsulting/pulse
 
 defaults:
   # define job to build and publish docker image
