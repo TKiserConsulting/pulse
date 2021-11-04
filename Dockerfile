@@ -37,7 +37,7 @@ RUN  \
     npm run version -- v${version} --unsafe-perm  && \ 
     npm run lint && \ 
     npm run build:prod && \
-    rm ./dist/pulse/stats.json && \
+    # rm ./dist/pulse/stats.json && \
     cp -r ./dist/pulse /dist
 
 
