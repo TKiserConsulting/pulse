@@ -13,6 +13,9 @@
         "lint": "npm run sdk-lint && npm run pulse-lint",
         "nghm": "node --max_old_space_size=4096 ./node_modules/@angular/cli/bin/ng",
         "build": "npm run nghm -- build",
+        "sdk-build:prod": "npm run build -- --configuration production --project=pulse-sdk",
+        "pulse-build:prod": "NODE_ENV=production npm run build -- --configuration production --project=pulse",
+        "build:prod": "npm run sdk-build:prod && npm run pulse-build:prod",
         "test": "ng test",
         "version": "npm version --no-git-tag-version --allow-same-version"
     },
