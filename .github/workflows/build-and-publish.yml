@@ -9,9 +9,8 @@ env:
   DOCKER_REGISTRY: ghcr.io
   DOCKER_IMAGE: tkiserconsulting/pulse
 
-defaults:
-  # define job to build and publish docker image
-  build-and-push-docker-image:
+jobs:
+  default:
     name: Build Docker image and push to Github Container registry
     runs-on: ubuntu-latest
 
