@@ -2,7 +2,7 @@ import { Component, Input } from '@angular/core';
 
 @Component({
     selector: 'app-block-ui',
-    template: ` <p-blockUI [blocked]="blocked" [target]="target"> </p-blockUI> `,
+    template: ` <p-blockUI [blocked]="blocked" [target]="target"></p-blockUI> `,
 })
 export class BlockUiComponent {
     @Input()

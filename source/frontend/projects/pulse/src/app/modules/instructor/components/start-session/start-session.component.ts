@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { ClassListItemDto } from '@app/api/models';
 import { ClassesService, SessionsService } from '@app/api/services';
@@ -10,7 +10,7 @@ import { lastValueFrom, Observable } from 'rxjs';
     templateUrl: './start-session.component.html',
     styleUrls: ['./start-session.component.scss'],
 })
-export class StartSessionComponent implements OnInit {
+export class StartSessionComponent {
     processing = false;
 
     classes$: Observable<ClassListItemDto[]>;
@@ -27,8 +27,6 @@ export class StartSessionComponent implements OnInit {
             'range-disable-total': true,
         });
     }
-
-    ngOnInit(): void {}
 
     onShow() {
         this.selectedClass = undefined;

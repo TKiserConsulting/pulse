@@ -14,11 +14,18 @@ import { TranslateService } from '@ngx-translate/core';
 export class HttpLocalizationInterceptor implements HttpInterceptor {
     constructor(private translateService: TranslateService) {}
 
-    intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
+    intercept(
+        request: HttpRequest<any>,
+        next: HttpHandler
+    ): Observable<HttpEvent<any>> {
         if (!request.headers.has('Accept-Language')) {
-            const lang = this.translateService.currentLang || this.translateService.defaultLang;
+            const lang =
+                this.translateService.currentLang ||
+                this.translateService.defaultLang;
             if (lang) {
-                request = request.clone({ headers: request.headers.set('Accept-Language', lang) });
+                request = request.clone({
+                    headers: request.headers.set('Accept-Language', lang),
+                });
             }
         }
 

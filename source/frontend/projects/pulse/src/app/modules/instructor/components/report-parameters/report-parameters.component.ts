@@ -12,7 +12,9 @@ import { lastValueFrom, map } from 'rxjs';
 })
 export class ReportParametersComponent implements OnInit {
     processing = false;
+
     loadingClasses = false;
+
     loadingDates = false;
 
     classes!: ClassListItemDto[];

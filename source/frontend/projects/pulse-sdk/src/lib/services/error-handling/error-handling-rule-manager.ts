@@ -25,7 +25,9 @@ export class ErrorHandlingRuleManager implements ErrorHandlingManager {
     public constructor(
         private loggerService: LoggerService,
         private translateService: TranslateService,
-        private messageService: { add: (arg: any) => void } | /* MessageService */ null = null,
+        private messageService: {
+            add: (arg: any) => void;
+        } | /* MessageService */ null = null,
         private validationController: ErrorHandlingValidationErrorConsumer | null = null,
         private summaryControl: {
             setSummaryErrors: (m: ClientErrorModel[]) => void;
@@ -42,7 +44,9 @@ export class ErrorHandlingRuleManager implements ErrorHandlingManager {
         return this;
     }
 
-    public toastWhenAllUnmapped(value: boolean = true): ErrorHandlingRuleManager {
+    public toastWhenAllUnmapped(
+        value: boolean = true
+    ): ErrorHandlingRuleManager {
         this.showToastWhenAllUnmapped = value;
         return this;
     }
@@ -56,7 +60,11 @@ export class ErrorHandlingRuleManager implements ErrorHandlingManager {
                 rule.code = '*';
             }
 
-            if (rule.code && rule.propertyName && rule.validation === undefined) {
+            if (
+                rule.code &&
+                rule.propertyName &&
+                rule.validation === undefined
+            ) {
                 rule.validation = true;
             }
 
@@ -124,12 +132,19 @@ export class ErrorHandlingRuleManager implements ErrorHandlingManager {
             (e) =>
                 e.rule &&
                 ((e.rule.summary !== undefined && this.summaryControl) ||
-                    (e.rule.validation !== undefined && this.validationController) ||
+                    (e.rule.validation !== undefined &&
+                        this.validationController) ||
                     (e.rule.toast !== undefined && this.messageService))
         );
 
-        if (!hasUiMapping && (this.showToastWhenAllUnmapped || this.showSummaryWhenAllUnmapped)) {
-            const data = new ErrorHandlingErrorModel(this.defaultScope || '', 'UNEXPECTEDERROR');
+        if (
+            !hasUiMapping &&
+            (this.showToastWhenAllUnmapped || this.showSummaryWhenAllUnmapped)
+        ) {
+            const data = new ErrorHandlingErrorModel(
+                this.defaultScope || '',
+                'UNEXPECTEDERROR'
+            );
             data.rule = {
                 code: data.code,
                 toast: this.showToastWhenAllUnmapped,
@@ -140,21 +155,29 @@ export class ErrorHandlingRuleManager implements ErrorHandlingManager {
             errors.push(data);
         }
 
-        const localizationKeys = (errors || []).map((e) => e.localizationKey || '');
+        const localizationKeys = (errors || []).map(
+            (e) => e.localizationKey || ''
+        );
         const localizationSet = await this.translate(localizationKeys);
         Object.values(errors).forEach((e) => {
             const message = localizationSet[e.localizationKey || ''];
-            e.message = e.extendedData ? template(message, e.extendedData) : message;
+            e.message = e.extendedData
+                ? template(message, e.extendedData)
+                : message;
         });
     }
 
-    private getAggregatedRule(code: string, propertyName: string): ErrorHandlingRule {
+    private getAggregatedRule(
+        code: string,
+        propertyName: string
+    ): ErrorHandlingRule {
         const rules = (this.rules || []).filter(
             (r: ErrorHandlingRule) =>
                 (r.code === code || r.code === '*') &&
                 ((propertyName && r.propertyName === propertyName) ||
                     (propertyName && r.propertyName === '*') ||
-                    (propertyName === undefined && r.propertyName === undefined))
+                    (propertyName === undefined &&
+                        r.propertyName === undefined))
         );
 
         const rule: ErrorHandlingRule = {
@@ -164,7 +187,10 @@ export class ErrorHandlingRuleManager implements ErrorHandlingManager {
         };
 
         Object.values(rules).forEach((r) => {
-            rule.orderIndex = Math.min(rule.orderIndex || 0, r.orderIndex || Number.MAX_VALUE);
+            rule.orderIndex = Math.min(
+                rule.orderIndex || 0,
+                r.orderIndex || Number.MAX_VALUE
+            );
 
             if (rule.localizationKey === undefined && r.localizationKey) {
                 rule.localizationKey = r.localizationKey;
@@ -187,7 +213,8 @@ export class ErrorHandlingRuleManager implements ErrorHandlingManager {
     }
 
     private getLocalizationKey(rule: ErrorHandlingRule): string {
-        let localizationKey = rule.localizationKey || this.buildDefaultLocalizationKey(rule);
+        let localizationKey =
+            rule.localizationKey || this.buildDefaultLocalizationKey(rule);
         localizationKey = this.toAbsoluteLocalizationKey(localizationKey, rule);
         return localizationKey;
     }
@@ -195,13 +222,19 @@ export class ErrorHandlingRuleManager implements ErrorHandlingManager {
     private buildDefaultLocalizationKey(rule: ErrorHandlingRule): string {
         const propertyName = rule.propertyName || '';
         const code = rule.code || '';
-        let key = propertyName && code ? `${propertyName}_${code}` : `${propertyName}${code}`;
+        let key =
+            propertyName && code
+                ? `${propertyName}_${code}`
+                : `${propertyName}${code}`;
         key = key.replace(/[.]/g, '_');
 
         return key;
     }
 
-    private toAbsoluteLocalizationKey(localizationKey: string, rule: ErrorHandlingRule): string {
+    private toAbsoluteLocalizationKey(
+        localizationKey: string,
+        rule: ErrorHandlingRule
+    ): string {
         const localizationPrefix =
             rule.propertyName === undefined
                 ? this.globalLocalizationPrefix
@@ -217,7 +250,9 @@ export class ErrorHandlingRuleManager implements ErrorHandlingManager {
         return localizationKey;
     }
 
-    private async translate(localizationKeys: string[]): Promise<{ [s: string]: string }> {
+    private async translate(
+        localizationKeys: string[]
+    ): Promise<{ [s: string]: string }> {
         const result: { [s: string]: string } = await this.translateService
             .get(localizationKeys)
             .toPromise();
@@ -226,21 +261,27 @@ export class ErrorHandlingRuleManager implements ErrorHandlingManager {
 
     private populateSummary(errors: ErrorHandlingErrorModel[]) {
         if (this.summaryControl) {
-            const items = (errors || []).filter((e) => e.rule && e.rule.summary === true);
+            const items = (errors || []).filter(
+                (e) => e.rule && e.rule.summary === true
+            );
             this.summaryControl.setSummaryErrors(items);
         }
     }
 
     private populateValidation(errors: ErrorHandlingErrorModel[]) {
         if (this.validationController) {
-            const items = (errors || []).filter((e) => e.rule && e.rule.validation === true);
+            const items = (errors || []).filter(
+                (e) => e.rule && e.rule.validation === true
+            );
             this.validationController.setValidationErrors(items);
         }
     }
 
     private populateToast(errors: ErrorHandlingErrorModel[]) {
         if (this.messageService) {
-            const items = (errors || []).filter((e) => e.rule && e.rule.toast === true);
+            const items = (errors || []).filter(
+                (e) => e.rule && e.rule.toast === true
+            );
             Object.values(items).forEach((item) => {
                 this.messageService?.add({
                     severity: 'error',

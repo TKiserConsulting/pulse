@@ -3,7 +3,8 @@ import { Injectable } from '@angular/core';
 
 @Injectable({ providedIn: 'root' })
 export class HttpConfigService {
-    private callback: ((req: HttpRequest<any>) => HttpRequest<any>) | null = null;
+    private callback: ((req: HttpRequest<any>) => HttpRequest<any>) | null =
+        null;
 
     register(action: (req: HttpRequest<any>) => HttpRequest<any>) {
         this.callback = action;

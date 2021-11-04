@@ -1,5 +1,9 @@
 import { Directive, EventEmitter, HostListener, Output } from '@angular/core';
-import { ControlContainer, FormGroupDirective, FormGroup } from '@angular/forms';
+import {
+    ControlContainer,
+    FormGroupDirective,
+    FormGroup,
+} from '@angular/forms';
 
 @Directive({
     selector: '[appSubmitIfValid]',

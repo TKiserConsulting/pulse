@@ -16,7 +16,10 @@ import { ApiErrorDescription, ApiError, ApiErrorType } from '../models';
 export class HttpErrorInterceptor implements HttpInterceptor {
     constructor(private logger: LoggerService) {}
 
-    intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
+    intercept(
+        request: HttpRequest<any>,
+        next: HttpHandler
+    ): Observable<HttpEvent<any>> {
         return next.handle(request).pipe(
             catchError((err: HttpErrorResponse) => {
                 return this.throwApiError(err);
@@ -32,14 +35,18 @@ export class HttpErrorInterceptor implements HttpInterceptor {
         );
     }
 
-    private transformError(errorResponse: HttpErrorResponse, error: any): ApiError {
+    private transformError(
+        errorResponse: HttpErrorResponse,
+        error: any
+    ): ApiError {
         let errorDescription: ApiErrorDescription;
         try {
             if (!error) {
                 throw new Error('The error depends from status only');
             }
 
-            errorDescription = typeof error === 'string' ? JSON.parse(error) : error;
+            errorDescription =
+                typeof error === 'string' ? JSON.parse(error) : error;
             if (!errorDescription.code) {
                 this.logger.error('Unable to parse error', error);
                 throw new Error('Invalid error object obtained');
@@ -89,9 +96,13 @@ export class HttpErrorInterceptor implements HttpInterceptor {
         apiError.traceId = errorDescription.traceId || undefined;
         apiError.code = errorDescription.code || ApiErrorType.UnexpectedError;
         apiError.title =
-            errorDescription.title || errorDescription.message || 'Unexpected error occurred';
+            errorDescription.title ||
+            errorDescription.message ||
+            'Unexpected error occurred';
         apiError.message =
-            errorDescription.message || errorDescription.title || 'Unexpected error occurred';
+            errorDescription.message ||
+            errorDescription.title ||
+            'Unexpected error occurred';
         apiError.errors = errorDescription.errors || [];
         apiError.innerError = errorResponse;
         return apiError;

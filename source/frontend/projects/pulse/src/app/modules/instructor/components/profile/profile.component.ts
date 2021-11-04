@@ -6,7 +6,6 @@ import {
     Validators,
 } from '@angular/forms';
 import { ErrorHandlingService, trackProcessing } from '@pulse/sdk';
-import { AuthService } from '@app/shared/services/auth.service';
 import { ProfilesService } from '@app/api/services';
 import { MessageService } from 'primeng/api';
 import { lastValueFrom } from 'rxjs';
@@ -20,6 +19,7 @@ import { Router } from '@angular/router';
 })
 export class ProfileComponent {
     processing = false;
+
     uploading = false;
 
     frm: FormGroup;
@@ -34,7 +34,6 @@ export class ProfileComponent {
         private formBuilder: FormBuilder,
         private messageService: MessageService,
         private profilesService: ProfilesService,
-        private authService: AuthService,
         private errorHandlingService: ErrorHandlingService,
         private sessionService: InstructorSessionService,
         private router: Router

@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { SessionsService } from '@app/api/services';
 import { InstructorSessionService } from '@app/modules/instructor/services/instructor-session.service';
 import { environment } from '@env/environment';
 import { ActiveSessionComponent } from '../../modules/instructor/components/active-session/active-session.component';

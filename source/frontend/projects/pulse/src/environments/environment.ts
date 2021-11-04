@@ -4,8 +4,8 @@
 import packageInfo from 'package.json';
 
 export const environment = {
-  production: false,
-  development: true,
+    production: false,
+    development: true,
     version: packageInfo.version,
     features: {
         authorization: true,

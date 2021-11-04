@@ -11,7 +11,10 @@ export enum WellKnownLocalStorageKey {
 export class StorageService {
     private keyPrefix: string;
 
-    constructor(@Inject(webstorage.SESSION_STORAGE) private storage: webstorage.StorageService) {
+    constructor(
+        @Inject(webstorage.SESSION_STORAGE)
+        private storage: webstorage.StorageService
+    ) {
         // eslint-disable-next-line no-undef
         this.keyPrefix = `pulse.storage:${window.location.origin}`;
     }

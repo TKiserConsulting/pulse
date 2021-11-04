@@ -99,7 +99,7 @@ export class ActiveSessionComponent implements OnInit, OnDestroy {
     @trackProcessing('processing')
     public async endCheckin() {
         if (this.session) {
-            const result = await this.checkinService
+            await this.checkinService
                 .finish({
                     body: {
                         sessionCheckinId:

@@ -14,15 +14,23 @@ import { HttpConfigService } from '../services/http-config.service';
 export class HttpConfigInterceptor implements HttpInterceptor {
     constructor(private configService: HttpConfigService) {}
 
-    intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
+    intercept(
+        request: HttpRequest<any>,
+        next: HttpHandler
+    ): Observable<HttpEvent<any>> {
         if (!request.headers.has('Content-Type')) {
             request = request.clone({
-                headers: request.headers.set('Content-Type', 'application/json'),
+                headers: request.headers.set(
+                    'Content-Type',
+                    'application/json'
+                ),
             });
         }
 
         if (!request.headers.has('Accept')) {
-            request = request.clone({ headers: request.headers.set('Accept', 'application/json') });
+            request = request.clone({
+                headers: request.headers.set('Accept', 'application/json'),
+            });
         }
 
         request = this.configService.apply(request);

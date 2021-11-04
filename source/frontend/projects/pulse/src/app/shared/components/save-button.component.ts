@@ -10,7 +10,11 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
             label="Save"
             (click)="onClick.emit($event)"
             [disabled]="disabled"
-            *ngIf="grantType + ':' + (editMode ? 'update' : 'create') | appGranted | async"
+            *ngIf="
+                grantType + ':' + (editMode ? 'update' : 'create')
+                    | appGranted
+                    | async
+            "
         ></button>
     `,
 })

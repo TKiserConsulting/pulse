@@ -71,7 +71,7 @@ export abstract class BaseDetailsComponent<TModel extends { id?: string }>
                     this.bind(model);
 
                     if (model.id) {
-                        this.postSaveNavigate(model.id);
+                        this.postSaveNavigate();
                     }
                 }
 
@@ -91,7 +91,7 @@ export abstract class BaseDetailsComponent<TModel extends { id?: string }>
         }
     }
 
-    protected postSaveNavigate(id: string) {
+    protected postSaveNavigate() {
         this.router.navigate([`../`], {
             relativeTo: this.route,
             replaceUrl: true,

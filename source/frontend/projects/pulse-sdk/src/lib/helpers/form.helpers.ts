@@ -23,7 +23,10 @@ export function markAllFormFieldsAsDirty(formGroup: FormGroup): void {
     });
 }
 
-export function populateClientErrors(frm: FormGroup, clientErrors: ClientErrorModel[]): void {
+export function populateClientErrors(
+    frm: FormGroup,
+    clientErrors: ClientErrorModel[]
+): void {
     const errorSet = groupBy(clientErrors || [], 'propertyName');
 
     Object.keys(errorSet || {}).forEach((propertyName) => {
@@ -37,7 +40,9 @@ export function populateClientErrors(frm: FormGroup, clientErrors: ClientErrorMo
             cntrl.setErrors(errors);
         } else {
             // eslint-disable-next-line no-console
-            console.warn(`Cannot bind validation error to control: ${propertyName}`);
+            console.warn(
+                `Cannot bind validation error to control: ${propertyName}`
+            );
         }
     });
 }

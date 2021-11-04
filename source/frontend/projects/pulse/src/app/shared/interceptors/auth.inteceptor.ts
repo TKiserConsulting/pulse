@@ -19,7 +19,8 @@ import { JwtAuthModel } from '../models/auth.models';
 @Injectable({ providedIn: 'root' })
 export class JwtInterceptor implements HttpInterceptor {
     // todo [mi] review subject usage
-    private refreshTokenSubject: BehaviorSubject<JwtAuthModel | null> = new BehaviorSubject<JwtAuthModel | null>(null);
+    private refreshTokenSubject: BehaviorSubject<JwtAuthModel | null> =
+        new BehaviorSubject<JwtAuthModel | null>(null);
 
     private isRefreshing = false;
 
@@ -36,7 +37,10 @@ export class JwtInterceptor implements HttpInterceptor {
         });
     }
 
-    intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
+    intercept(
+        request: HttpRequest<any>,
+        next: HttpHandler
+    ): Observable<HttpEvent<any>> {
         const tokensSnapshot = this.jwtModel;
 
         const upgradedRequest = this.populateJwt(request, tokensSnapshot);
@@ -50,14 +54,22 @@ export class JwtInterceptor implements HttpInterceptor {
                     error instanceof HttpErrorResponse &&
                     error.status === 401
                 ) {
-                    return this.handle401Error(request, next, tokensSnapshot, error);
+                    return this.handle401Error(
+                        request,
+                        next,
+                        tokensSnapshot,
+                        error
+                    );
                 }
                 return throwError(() => error);
             })
         );
     }
 
-    private populateJwt(request: HttpRequest<any>, tokens: JwtAuthModel): HttpRequest<any> {
+    private populateJwt(
+        request: HttpRequest<any>,
+        tokens: JwtAuthModel
+    ): HttpRequest<any> {
         if (tokens && tokens.access_token) {
             request = request.clone({
                 setHeaders: {
@@ -82,7 +94,10 @@ export class JwtInterceptor implements HttpInterceptor {
 
             return this.authService.refresh(tokens).pipe(
                 catchError((innerError) => {
-                    this.logger.log('Unhandled error during refresh', innerError);
+                    this.logger.log(
+                        'Unhandled error during refresh',
+                        innerError
+                    );
                     this.authService.signout();
                     this.router.navigate(['/signin']);
                     // return this.handleOrThrow(request, next, null, innerError);
@@ -92,14 +107,21 @@ export class JwtInterceptor implements HttpInterceptor {
                     this.isRefreshing = false;
                     this.refreshTokenSubject.next(jwt);
 
-                    return this.handleOrThrow(request, next, jwt, originalError);
+                    return this.handleOrThrow(
+                        request,
+                        next,
+                        jwt,
+                        originalError
+                    );
                 })
             );
         }
         return this.refreshTokenSubject.pipe(
             filter((m) => m != null),
             take(1),
-            switchMap((jwt: any) => this.handleOrThrow(request, next, jwt, originalError))
+            switchMap((jwt: any) =>
+                this.handleOrThrow(request, next, jwt, originalError)
+            )
         );
     }
 

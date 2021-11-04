@@ -6,7 +6,6 @@ import { ErrorHandlingService, trackProcessing } from '@pulse/sdk';
 import { ConfirmationService, MenuItem } from 'primeng/api';
 import { ContextMenu } from 'primeng/contextmenu';
 import { lastValueFrom } from 'rxjs';
-import { AuthService } from '@app/shared/services/auth.service';
 
 @Component({
     selector: 'app-class-list',
@@ -65,10 +64,8 @@ export class ClassListComponent implements OnInit {
 
     public showContextMenu(item: ClassListItemDto, event: any) {
         this.menuItemRename.command = () => this.renameClass(item);
-        this.menuItemDelete.command = () =>
-            this.confirmDeleteClass(item, event);
-        this.menuItemSession.command = () =>
-            this.confirmStartSession(item, event);
+        this.menuItemDelete.command = () => this.confirmDeleteClass(item);
+        this.menuItemSession.command = () => this.confirmStartSession(item);
         this.contextMenu.show(event);
     }
 
@@ -76,7 +73,7 @@ export class ClassListComponent implements OnInit {
         this.router.navigate([item.id], { relativeTo: this.route });
     }
 
-    private confirmDeleteClass(item: ClassListItemDto, event: any) {
+    private confirmDeleteClass(item: ClassListItemDto) {
         this.confirmationService.confirm({
             // target: event.target,
             message: `Delete class '${item.name}'?`,
@@ -93,7 +90,7 @@ export class ClassListComponent implements OnInit {
         await this.load();
     }
 
-    private confirmStartSession(item: ClassListItemDto, event: any) {
+    private confirmStartSession(item: ClassListItemDto) {
         this.confirmationService.confirm({
             // target: event.target,
             message: `Start new session for the class '${item.name}'?`,

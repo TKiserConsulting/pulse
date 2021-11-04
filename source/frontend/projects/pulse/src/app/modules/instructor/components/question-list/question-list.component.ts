@@ -1,4 +1,4 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 import { SessionCheckinDetailsDto } from '@app/api/models/session-checkin-details-dto';
 import { SessionQuestionDetailsDto } from '@app/api/models/session-question-details-dto';
 import { QuestionsService } from '@app/api/services/questions.service';
@@ -12,7 +12,7 @@ import { trackProcessing } from '@pulse/sdk';
     templateUrl: './question-list.component.html',
     styleUrls: ['./question-list.component.scss'],
 })
-export class QuestionListComponent implements OnInit {
+export class QuestionListComponent {
     @Output() endCheckin = new EventEmitter<void>();
 
     display: boolean = false;
@@ -30,8 +30,6 @@ export class QuestionListComponent implements OnInit {
         private questionsService: QuestionsService,
         private sessionUtils: SessionUtilsService
     ) {}
-
-    ngOnInit(): void {}
 
     @trackProcessing('processing')
     public async show(checkin: SessionCheckinDetailsDto) {

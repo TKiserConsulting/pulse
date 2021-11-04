@@ -44,8 +44,13 @@ export class LoggerService {
     }
 }
 
-export function LoggerConfigFactory(defaultLevel: NgxLoggerLevel, storageService: StorageService) {
-    let level = storageService.get<number>(WellKnownLocalStorageKey.loggingLevel);
+export function LoggerConfigFactory(
+    defaultLevel: NgxLoggerLevel,
+    storageService: StorageService
+) {
+    let level = storageService.get<number>(
+        WellKnownLocalStorageKey.loggingLevel
+    );
     if (level === null || level === undefined || Number.isNaN(level)) {
         level = defaultLevel;
     }
@@ -55,7 +60,9 @@ export function LoggerConfigFactory(defaultLevel: NgxLoggerLevel, storageService
 
 // eslint-disable-next-line @typescript-eslint/naming-convention
 export function LOGGER_CONFIG_PROVIDER(development: boolean) {
-    const defaultLevel = development ? NgxLoggerLevel.TRACE : NgxLoggerLevel.WARN;
+    const defaultLevel = development
+        ? NgxLoggerLevel.TRACE
+        : NgxLoggerLevel.WARN;
     const provider: FactoryProvider = {
         provide: LoggerConfig,
         useFactory: LoggerConfigFactory.bind(null, defaultLevel),

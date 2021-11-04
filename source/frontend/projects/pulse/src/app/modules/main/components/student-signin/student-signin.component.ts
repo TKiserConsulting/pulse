@@ -23,6 +23,7 @@ export class StudentSigninComponent implements OnInit {
     public displaySessionEnded = false;
 
     public processing = false;
+
     constructor(
         private formBuilder: FormBuilder,
         private route: ActivatedRoute,

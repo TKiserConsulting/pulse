@@ -25,9 +25,7 @@ export class InstructorSessionService {
     constructor(
         private sessionApiService: SessionsService,
         private authService: AuthService
-    ) {
-        this.authService.identity$;
-    }
+    ) {}
 
     public async getActiveSession() {
         if (this.session$.value) {

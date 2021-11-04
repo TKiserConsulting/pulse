@@ -17,7 +17,7 @@ export class ProfileImagePipe implements PipeTransform {
         imageSize?: string
     ): Observable<SafeUrl | string> {
         return url$.pipe(
-            switchMap((url) => {
+            switchMap(() => {
                 const image$ = imageSize?.startsWith('small')
                     ? this.profilesService.loadSmallImage()
                     : this.profilesService.loadImage();

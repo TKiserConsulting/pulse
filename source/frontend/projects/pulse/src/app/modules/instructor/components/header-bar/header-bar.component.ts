@@ -1,9 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { Identity } from '@app/shared/models/auth.models';
 import { AuthService } from '@app/shared/services/auth.service';
 import { MenuItem } from 'primeng/api';
-import { map } from 'rxjs';
 import { InstructorSessionService } from '../../services/instructor-session.service';
 
 @Component({
@@ -11,7 +10,7 @@ import { InstructorSessionService } from '../../services/instructor-session.serv
     templateUrl: './header-bar.component.html',
     styleUrls: ['./header-bar.component.scss'],
 })
-export class HeaderBarComponent implements OnInit {
+export class HeaderBarComponent {
     user: Identity | null = null;
 
     menuItems: MenuItem[];
@@ -36,8 +35,6 @@ export class HeaderBarComponent implements OnInit {
             this.user = i;
         });
     }
-
-    ngOnInit(): void {}
 
     public getImageLink() {
         return this.sessionService.profileImageTimestamp$;

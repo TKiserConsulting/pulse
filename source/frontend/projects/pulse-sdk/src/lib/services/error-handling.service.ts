@@ -10,16 +10,16 @@ import { ErrorHandlingRuleManager } from './error-handling/error-handling-rule-m
 import { populateClientErrors } from '../helpers/form.helpers';
 import { LoggerService } from './logger.service';
 
-export const ERROR_HANDLING_MESSAGE_SERVICE = new InjectionToken<ErrorHandlingService>(
-    'MessageService'
-);
+export const ERROR_HANDLING_MESSAGE_SERVICE =
+    new InjectionToken<ErrorHandlingService>('MessageService');
 
 @Injectable({ providedIn: 'root' })
 export class ErrorHandlingService {
     public constructor(
         private translateService: TranslateService,
         private loggerService: LoggerService,
-        @Inject(ERROR_HANDLING_MESSAGE_SERVICE) private defaultMessageService: any // MessageService
+        @Inject(ERROR_HANDLING_MESSAGE_SERVICE)
+        private defaultMessageService: any // MessageService
     ) {}
 
     public call$<T>(
@@ -30,7 +30,11 @@ export class ErrorHandlingService {
     ): Observable<T> {
         const obs = <Observable<T>>from(producer);
         return obs.pipe(
-            this.catchErrorUseDefault$(alternateInstanceFn, validationPrefix, validation)
+            this.catchErrorUseDefault$(
+                alternateInstanceFn,
+                validationPrefix,
+                validation
+            )
         );
     }
 
@@ -72,7 +76,10 @@ export class ErrorHandlingService {
     }
 
     public default(
-        validation: ErrorHandlingValidationErrorConsumer | FormGroup | undefined,
+        validation:
+            | ErrorHandlingValidationErrorConsumer
+            | FormGroup
+            | undefined,
         summary: {
             setSummaryErrors: (m: ClientErrorModel[]) => void;
         } | null = null
@@ -94,7 +101,10 @@ export class ErrorHandlingService {
         if (consumer != null) {
             if (consumer instanceof FormGroup) {
                 instance = {
-                    setValidationErrors: populateClientErrors.bind(null, consumer),
+                    setValidationErrors: populateClientErrors.bind(
+                        null,
+                        consumer
+                    ),
                 };
             } else {
                 instance = consumer as ErrorHandlingValidationErrorConsumer;

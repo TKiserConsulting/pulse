@@ -1,10 +1,6 @@
 {
     "root": true,
-    "plugins": [
-        "@typescript-eslint",
-        "prettier"
-        // "@angular-eslint"
-    ],
+    "plugins": ["@typescript-eslint", "@angular-eslint", "import"],
     "parserOptions": {
         // "extraFileExtensions": [".html"],
         "project": ["tsconfig.eslint.json"]
@@ -29,11 +25,8 @@
             "files": ["*.ts"],
             "extends": [
                 "airbnb-typescript/base",
-                // "plugin:@typescript-eslint/recommended",
-                // "plugin:@typescript-eslint/recommended-requiring-type-checking",
                 "plugin:@angular-eslint/recommended",
-                "prettier/@typescript-eslint",
-                "plugin:prettier/recommended"
+                "prettier"
             ],
             "parser": "@typescript-eslint/parser",
             "parserOptions": {
@@ -43,11 +36,19 @@
             "rules": {
                 "@angular-eslint/directive-selector": [
                     "error",
-                    { "type": "attribute", "prefix": "app", "style": "camelCase" }
+                    {
+                        "type": "attribute",
+                        "prefix": "app",
+                        "style": "camelCase"
+                    }
                 ],
                 "@angular-eslint/component-selector": [
                     "error",
-                    { "type": "element", "prefix": "app", "style": "kebab-case" }
+                    {
+                        "type": "element",
+                        "prefix": "app",
+                        "style": "kebab-case"
+                    }
                 ],
                 "@typescript-eslint/no-inferrable-types": "off",
                 "import/prefer-default-export": "off",

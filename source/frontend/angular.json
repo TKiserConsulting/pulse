@@ -110,6 +110,12 @@
                         },
                         "scripts": []
                     }
+                },
+                "lint": {
+                    "builder": "@angular-eslint/builder:lint",
+                    "options": {
+                        "lintFilePatterns": ["projects/pulse/src/**/*.ts"]
+                    }
                 }
             }
         },
@@ -223,6 +229,14 @@
                             "includePaths": ["projects/pulse-student/src/scss"]
                         },
                         "scripts": []
+                    }
+                },
+                "lint": {
+                    "builder": "@angular-eslint/builder:lint",
+                    "options": {
+                        "lintFilePatterns": [
+                            "projects/pulse-student/src/**/*.ts"
+                        ]
                     }
                 }
             }

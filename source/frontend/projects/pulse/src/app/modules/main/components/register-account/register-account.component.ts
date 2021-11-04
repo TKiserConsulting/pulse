@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import {
     FormBuilder,
     FormControl,
@@ -14,7 +14,7 @@ import { ErrorHandlingService, trackProcessing } from '@pulse/sdk';
     templateUrl: './register-account.component.html',
     styleUrls: ['./register-account.component.scss'],
 })
-export class RegisterAccountComponent implements OnInit {
+export class RegisterAccountComponent {
     public frm: FormGroup;
 
     private returnUrl: string | null = null;
@@ -35,8 +35,6 @@ export class RegisterAccountComponent implements OnInit {
             lastName: new FormControl('', [Validators.required]),
         });
     }
-
-    ngOnInit(): void {}
 
     @trackProcessing('processing')
     public async register() {

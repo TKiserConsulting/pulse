@@ -6,8 +6,6 @@ import { SessionCheckinDetailsDto } from '@app/api/models/session-checkin-detail
     providedIn: 'root',
 })
 export class SessionUtilsService {
-    constructor() {}
-
     public getCheckinTitle(
         checkin: SessionCheckinDetailsDto | CheckinType | null | undefined
     ) {
