@@ -37,8 +37,8 @@ RUN  \
     npm run version -- v${version} --unsafe-perm  && \ 
     npm run lint && \ 
     npm run build:prod && \
-    rm ./dist/estimator-portal/stats.json && \
-    cp -r ./dist/estimator-portal /dist
+    rm ./dist/pulse/stats.json && \
+    cp -r ./dist/pulse /dist
 
 
 # runtime image
