@@ -1,0 +1,9 @@
+echo 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 | docker login ghcr.io -u maxiskorkin --password-stdin
+
+docker run -t -d -p 8080:8080 -p 5000:5000 -e ConnectionStrings__Default="User ID=pulse;Password=pulse;Host=192.168.82.184;Port=5432;Database=pulse;" -e Tokens__Key=tc9e6fUcKY23c806fb51ZEKhF9bWGsGq --name pulse --restart unless-stopped ghcr.io/tkiserconsulting/pulse:edge
+
+Serilog__WriteTo__0__Args__formatter = ''
+Serilog__WriteTo__0__Args__outputTemplate = {Timestamp:HH:mm:ss.fff} [{Level:u3}] {Message}{NewLine}{Exception}
+Serilog__WriteTo__0__Args__theme = Serilog.Sinks.SystemConsole.Themes.AnsiConsoleTheme::Code, Serilog.Sinks.Console
+
+Serilog__MinimumLevel__Default = Debug

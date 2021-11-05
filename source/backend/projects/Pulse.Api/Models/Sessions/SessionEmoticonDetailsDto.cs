@@ -12,7 +12,7 @@ namespace Pulse.Api.Models.Sessions
         public string Title { get; set; }
 
         [Required]
-        public int Color { get; set; }
+        public string Color { get; set; }
 
         [Required]
         public int TapCount { get; set; }

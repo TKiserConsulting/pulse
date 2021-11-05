@@ -49,9 +49,6 @@ jobs:
             MAJOR=${MINOR%.*}
             TAGS="$TAGS,${MINOR},${MAJOR},latest"
             DOCKER_TAGS="$DOCKER_TAGS,${DOCKER_TAG_IMAGE}:${MINOR},${DOCKER_TAG_IMAGE}:${MAJOR},${DOCKER_TAG_IMAGE}:latest"
-          #elif [ "${{ github.event_name }}" = "push" ]; then
-          #  TAGS="${APPLICATION_VERSION},$TAGS"
-          #  DOCKER_TAGS="${DOCKER_TAG_IMAGE}:${APPLICATION_VERSION},$DOCKER_TAGS"
           fi
           echo ::set-output name=docker_registry::${DOCKER_REGISTRY}
           echo ::set-output name=docker_image::${DOCKER_IMAGE}

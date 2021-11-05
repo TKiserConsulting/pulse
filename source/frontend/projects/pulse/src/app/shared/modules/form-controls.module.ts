@@ -34,7 +34,6 @@ import { GridComponent } from '../components/grid.component';
 import { SafePipe } from '../pipes/safe.pipe';
 import { EmptyComponent } from '../components/empty.component';
 import { EssentialControlsModule } from './essential-controls.module';
-import { ToColorPipe } from '../pipes/to-color.pipe';
 
 @NgModule({
     imports: [
@@ -59,7 +58,6 @@ import { ToColorPipe } from '../pipes/to-color.pipe';
     declarations: [
         DebounceInputDirective,
         DateTimePipe,
-        ToColorPipe,
         AuditorPipe,
         SafePipe,
         GrantedPipe,
@@ -80,7 +78,6 @@ import { ToColorPipe } from '../pipes/to-color.pipe';
         RouterModule,
         DebounceInputDirective,
         DateTimePipe,
-        ToColorPipe,
         AuditorPipe,
         SafePipe,
         GrantedPipe,
