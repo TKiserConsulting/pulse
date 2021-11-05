@@ -45,13 +45,7 @@
 <p-toast position="bottom-center" key="tap" [baseZIndex]="5000">
     <ng-template let-message pTemplate="message">
         <div
-            class="
-                flex flex-column flex-grow-1
-                text-center
-                p-4
-                text-4xl
-                font-bold
-            "
+            class="flex flex-column flex-grow-1 text-center p-4 text-4xl"
             [ngStyle]="toastStyle"
         >
             {{ message.detail }}

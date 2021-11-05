@@ -157,6 +157,16 @@ namespace Pulse.Api.BareboneControllers
             // attach to role
             await this.userManager.AddToRoleAsync(instance, UserRole.Instructor.ToString());
 
+            // copy emoticons
+            var emoticons = await this.db.Emoticons.AsNoTracking().ToListAsync(cancellationToken);
+            var instructorEmoticons = this.mapper.Map<InstructorEmoticon[]>(emoticons);
+            foreach (var emoticon in instructorEmoticons)
+            {
+                emoticon.InstructorId = instance.Id;
+            }
+
+            await this.db.InstructorEmoticons.AddRangeAsync(instructorEmoticons, cancellationToken);
+
             await this.db.SaveChangesAsync(cancellationToken);
 
             var accessToken = await this.GenerateAccessToken(instance, cancellationToken);

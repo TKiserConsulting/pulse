@@ -14,6 +14,9 @@ namespace Pulse.Api.Common.Mappers
             this.CreateMap<InstructorEmoticonUpdateDto, InstructorEmoticon>();
 
             this.CreateMap<InstructorEmoticon, SessionEmoticonDetailsDto>();
+
+            this.CreateMap<Emoticon, InstructorEmoticon>()
+                .ForMember(m => m.Id, opt => opt.Ignore());
         }
     }
 }

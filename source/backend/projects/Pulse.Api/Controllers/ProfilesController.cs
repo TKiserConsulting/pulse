@@ -46,6 +46,8 @@ namespace Pulse.Api.Controllers
                 .ProjectTo<InstructorProfileDetailsDto>(this.mapper.ConfigurationProvider)
                 .FirstOrDefaultAsync(cancellationToken);
 
+            dto ??= new InstructorProfileDetailsDto { Id = this.authManager.UserId };
+
             var user = await this.db.Set<ApplicationUser>()
                 .AsNoTracking()
                 .SingleAsync(m => m.Id == this.authManager.UserId, cancellationToken);
