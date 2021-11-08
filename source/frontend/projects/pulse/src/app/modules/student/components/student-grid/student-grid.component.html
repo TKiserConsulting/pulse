@@ -39,6 +39,22 @@
         (click)="questionComponent.show()"
     ></button>
 
+    <div class="flex justify-content-start align-items-center pt-6">
+        <div class="text-xl">
+            Session: <span class="font-semibold">{{ session.code }}</span>
+        </div>
+        <div class="pl-4 pr-2 text-500">|</div>
+        <div>
+            <button
+                pButton
+                type="button"
+                label="Exit"
+                class="p-button-text text-l"
+                (click)="confirmExit()"
+            ></button>
+        </div>
+    </div>
+
     <app-student-question #questionComponent></app-student-question>
 </div>
 

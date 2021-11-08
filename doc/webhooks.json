@@ -1,0 +1,8 @@
+[
+  {
+    "id": "pulse-redeploy",
+    "execute-command": "/home/developer/webhook/pulse-redeploy.sh",
+    "command-working-directory": "/home/developer",
+    "response-message": "Redeploying Pulse server on Volia VM"
+  }
+]

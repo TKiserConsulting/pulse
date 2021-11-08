@@ -3,7 +3,7 @@
         class="
             flex
             justify-content-between
-            align-content-center
+            align-items-center
             p-2
             bg-gray-100
             shadow-1
@@ -21,3 +21,21 @@
 
     <!-- <footer>{{ version }}</footer> -->
 </div>
+
+<p-confirmDialog #cd header="Confirmation" icon="pi">
+    <p-footer>
+        <button
+            type="button"
+            pButton
+            class="p-button-secondary"
+            label="No"
+            (click)="cd.reject()"
+        ></button>
+        <button
+            type="button"
+            pButton
+            label="Yes"
+            (click)="cd.accept()"
+        ></button>
+    </p-footer>
+</p-confirmDialog>
