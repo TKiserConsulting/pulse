@@ -30,10 +30,7 @@
                 (click)="checkinButtonsVisible = !checkinButtonsVisible"
             ></p-button>
             <p-badge
-                *ngIf="
-                    !checkinButtonsVisible &&
-                    session.activeCheckin?.questions?.length
-                "
+                *ngIf="!checkinButtonsVisible && (questionCount$ | async)"
                 class="ml-1"
                 [value]="getQuestionCount()"
                 severity="warning"

@@ -5,7 +5,8 @@ import { ClassesService, SessionsService } from '@app/api/services';
 import { ErrorHandlingService, trackProcessing } from '@pulse/sdk';
 import { ConfirmationService, MenuItem } from 'primeng/api';
 import { ContextMenu } from 'primeng/contextmenu';
-import { lastValueFrom } from 'rxjs';
+import { firstValueFrom, lastValueFrom } from 'rxjs';
+import { InstructorSessionService } from '../../services/instructor-session.service';
 
 @Component({
     selector: 'app-class-list',
@@ -42,7 +43,8 @@ export class ClassListComponent implements OnInit {
         private router: Router,
         private route: ActivatedRoute,
         private confirmationService: ConfirmationService,
-        private sessionsService: SessionsService
+        private sessionsService: SessionsService,
+        private sessionService: InstructorSessionService
     ) {}
 
     async ngOnInit(): Promise<void> {
@@ -86,7 +88,7 @@ export class ClassListComponent implements OnInit {
 
     @trackProcessing('processing')
     private async deleteClass(item: ClassListItemDto) {
-        await this.apiService.delete({ id: item.id }).toPromise();
+        await firstValueFrom(this.apiService.delete({ id: item.id }));
         await this.load();
     }
 
@@ -103,9 +105,12 @@ export class ClassListComponent implements OnInit {
 
     @trackProcessing('processing')
     private async startSession(item: ClassListItemDto) {
-        await this.sessionsService
-            .create({ body: { classId: item.id } })
-            .toPromise();
-        this.router.navigate(['instructor', 'session'], { replaceUrl: true });
+        await firstValueFrom(
+            this.sessionsService.create({ body: { classId: item.id } })
+        );
+        this.sessionService.session$.next(null);
+        this.router.navigate(['instructor', 'session'], {
+            replaceUrl: true,
+        });
     }
 }

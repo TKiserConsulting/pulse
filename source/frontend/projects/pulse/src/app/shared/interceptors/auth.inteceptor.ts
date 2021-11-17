@@ -99,7 +99,13 @@ export class JwtInterceptor implements HttpInterceptor {
                         innerError
                     );
                     this.authService.signout();
-                    this.router.navigate(['/signin']);
+                    const isStudentRoute =
+                        this.router.routerState.snapshot.url.includes(
+                            'student'
+                        );
+                    this.router.navigate(
+                        isStudentRoute ? ['/student', 'join'] : ['/signin']
+                    );
                     // return this.handleOrThrow(request, next, null, innerError);
                     return throwError(() => innerError);
                 }),

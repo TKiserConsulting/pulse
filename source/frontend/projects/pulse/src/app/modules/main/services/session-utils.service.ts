@@ -66,4 +66,8 @@ export class SessionUtilsService {
     public rgbToNumber(rgb: { r: number; g: number; b: number }) {
         return (rgb.r << 16) + (rgb.g << 8) + rgb.b;
     }
+
+    public normalizeGuid(guid: string) {
+        return guid?.replace(/-/gi, '');
+    }
 }

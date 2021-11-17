@@ -65,6 +65,9 @@ export class QuestionListComponent {
 
         const index = this.questions.indexOf(item);
         this.questions.splice(index, 1);
+
+        item.dismissed = new Date().toUTCString();
+        this.sessionService.question$.next(item);
     }
 
     public endCheckinClick() {
@@ -73,8 +76,13 @@ export class QuestionListComponent {
     }
 
     private onNewQuestion(q: SessionQuestionDetailsDto | null) {
-        if (q) {
-            this.questions.push(q);
+        if (q && !q.dismissed) {
+            const questionAlreadyInTheList = this.questions.some(
+                (m) => m.sessionQuestionId == q.sessionQuestionId
+            );
+            if (!questionAlreadyInTheList) {
+                this.questions.push(q);
+            }
         }
     }
 }

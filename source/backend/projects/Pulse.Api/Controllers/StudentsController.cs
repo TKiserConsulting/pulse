@@ -68,7 +68,7 @@ namespace Pulse.Api.Controllers
 
             if (sessionId == Guid.Empty)
             {
-                throw new UnauthenticatedException($"There is not active session for code '{model.SessionCode}'");
+                throw new UnauthenticatedException($"There is no active session for code '{model.SessionCode}'");
             }
 
             // create new session student

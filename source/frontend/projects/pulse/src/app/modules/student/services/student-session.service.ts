@@ -7,6 +7,7 @@ import { Router } from '@angular/router';
 import { StudentsService } from '@app/api/services';
 import { AuthService } from '@app/shared/services/auth.service';
 import { SessionQuestionDetailsDto } from '@app/api/models/session-question-details-dto';
+import { SessionUtilsService } from '@app/modules/main/services/session-utils.service';
 
 @Injectable({
     providedIn: 'root',
@@ -26,7 +27,8 @@ export class StudentSessionService {
     constructor(
         private apiService: StudentsService,
         private router: Router,
-        private authService: AuthService
+        private authService: AuthService,
+        private utils: SessionUtilsService
     ) {}
 
     public async loadSession() {
@@ -106,8 +108,10 @@ export class StudentSessionService {
     }
 
     private onCheckin(checkin: SessionCheckinDetailsDto) {
-        checkin.sessionCheckinId = checkin.sessionCheckinId.replace(/-/gi, '');
-        checkin.sessionId = checkin.sessionId.replace(/-/gi, '');
+        checkin.sessionCheckinId = this.utils.normalizeGuid(
+            checkin.sessionCheckinId
+        );
+        checkin.sessionId = this.utils.normalizeGuid(checkin.sessionId);
         console.log('[Student] Checkin received', checkin);
         this.activeCheckin$.next(checkin);
     }

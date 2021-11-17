@@ -75,6 +75,10 @@ export class AuthService {
             // not care about result
             ();
 
+        this.clearAuth();
+    }
+
+    public clearAuth() {
         this.store.dispatch(fromAuth.clearAuth());
     }
 

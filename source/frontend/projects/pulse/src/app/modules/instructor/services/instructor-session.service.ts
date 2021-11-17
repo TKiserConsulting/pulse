@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { ActiveSessionDetailsDto } from '@app/api/models';
 import { SessionQuestionDetailsDto } from '@app/api/models/session-question-details-dto';
 import { SessionsService } from '@app/api/services';
+import { SessionUtilsService } from '@app/modules/main/services/session-utils.service';
 import { AuthService } from '@app/shared/services/auth.service';
 import * as signalR from '@microsoft/signalr';
 import { BehaviorSubject } from 'rxjs';
@@ -24,7 +25,8 @@ export class InstructorSessionService {
 
     constructor(
         private sessionApiService: SessionsService,
-        private authService: AuthService
+        private authService: AuthService,
+        private utils: SessionUtilsService
     ) {}
 
     public async getActiveSession() {
@@ -88,14 +90,19 @@ export class InstructorSessionService {
     }
 
     private onEmoticonTap(instructorEmoticonId: string) {
-        const noDash = instructorEmoticonId?.replace(/-/gi, '');
+        const noDash = this.utils.normalizeGuid(instructorEmoticonId);
         this.emoticonTap$.next(noDash);
     }
 
     private onQuestion(question: SessionQuestionDetailsDto) {
         const checkin = this.session$.value?.activeCheckin;
-        const questionCheckinId = question.sessionCheckinId.replace(/-/gi, '');
-        if (checkin && checkin.sessionCheckinId == questionCheckinId) {
+        question.sessionCheckinId = this.utils.normalizeGuid(
+            question.sessionCheckinId
+        );
+        question.sessionQuestionId = this.utils.normalizeGuid(
+            question.sessionQuestionId
+        );
+        if (checkin && checkin.sessionCheckinId == question.sessionCheckinId) {
             this.question$.next(question);
         }
     }

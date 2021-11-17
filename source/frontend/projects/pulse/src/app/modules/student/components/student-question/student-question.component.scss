@@ -7,4 +7,9 @@ form {
     min-height: 300px;
     max-height: 300px;
     max-width: 500px;
+
+    div {
+        border-radius: 7px;
+        padding: 0.7rem;
+    }
 }

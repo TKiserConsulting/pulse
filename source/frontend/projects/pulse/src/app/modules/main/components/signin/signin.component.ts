@@ -34,6 +34,7 @@ export class SigninComponent implements OnInit {
     }
 
     ngOnInit() {
+        this.authService.clearAuth();
         this.returnUrl = this.route.snapshot.queryParamMap.get('return') || '';
         if (this.route.snapshot.data.logout) {
             this.authService.signout();

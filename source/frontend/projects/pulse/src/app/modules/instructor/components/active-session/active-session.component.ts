@@ -1,13 +1,16 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { ActiveSessionDetailsDto } from '@app/api/models';
+import {
+    ActiveSessionDetailsDto,
+    SessionQuestionDetailsDto,
+} from '@app/api/models';
 import { CheckinType } from '@app/api/models/checkin-type';
 import { SessionsService } from '@app/api/services';
 import { CheckinService } from '@app/api/services/checkin.service';
 import { SessionUtilsService } from '@app/modules/main/services/session-utils.service';
 import { trackProcessing } from '@pulse/sdk';
 import { ConfirmationService } from 'primeng/api';
-import { filter, Subscription } from 'rxjs';
+import { BehaviorSubject, filter, firstValueFrom, Subscription } from 'rxjs';
 import { InstructorSessionService } from '../../services/instructor-session.service';
 
 @Component({
@@ -18,11 +21,15 @@ import { InstructorSessionService } from '../../services/instructor-session.serv
 export class ActiveSessionComponent implements OnInit, OnDestroy {
     session?: ActiveSessionDetailsDto;
 
-    public processing = false;
+    processing = false;
 
-    public checkinButtonsVisible = false;
+    checkinButtonsVisible = false;
+
+    questionCount$ = new BehaviorSubject<number>(0);
 
     private tapSubscription?: Subscription;
+
+    private questionSubscription?: Subscription;
 
     constructor(
         private router: Router,
@@ -35,18 +42,29 @@ export class ActiveSessionComponent implements OnInit, OnDestroy {
 
     async ngOnInit() {
         this.session = await this.sessionService.getActiveSession();
-        if (this.session) {
-            await this.sessionService.connectHub();
-            this.tapSubscription = this.sessionService.emoticonTap$
-                .pipe(filter((m) => m != null))
-                .subscribe(this.onTap.bind(this));
-        } else {
+        if (!this.session) {
             this.router.navigate(['instructor'], { replaceUrl: true });
+            return;
         }
+
+        await this.sessionService.connectHub();
+
+        this.questionCount$.next(
+            this.session.activeCheckin?.questions?.length || 0
+        );
+
+        this.tapSubscription = this.sessionService.emoticonTap$
+            .pipe(filter((m) => m != null))
+            .subscribe(this.onTap.bind(this));
+
+        this.questionSubscription = this.sessionService.question$
+            .pipe(filter((m) => m != null))
+            .subscribe(this.onQuestion.bind(this));
     }
 
     async ngOnDestroy() {
         this.tapSubscription?.unsubscribe();
+        this.questionSubscription?.unsubscribe();
         this.sessionService.disconnectHub();
     }
 
@@ -62,7 +80,8 @@ export class ActiveSessionComponent implements OnInit, OnDestroy {
 
     @trackProcessing('processing')
     private async endSession() {
-        await this.sessionsService.endSession().toPromise();
+        await firstValueFrom(this.sessionsService.endSession());
+        this.sessionService.session$.next(null);
         this.router.navigate(['instructor'], { replaceUrl: true });
     }
 
@@ -91,7 +110,7 @@ export class ActiveSessionComponent implements OnInit, OnDestroy {
     }
 
     public getQuestionCount() {
-        const count = this.session?.activeCheckin?.questions?.length;
+        const count = this.questionCount$.value;
 
         return count ? count.toString() : '';
     }
@@ -120,7 +139,16 @@ export class ActiveSessionComponent implements OnInit, OnDestroy {
         );
         if (item) {
             item.tapCount += 1;
-            console.log('+1', item.title);
         }
+    }
+
+    private onQuestion(question: SessionQuestionDetailsDto | null) {
+        let newCount = this.questionCount$.value;
+        if (question?.dismissed) {
+            newCount -= 1;
+        } else {
+            newCount += 1;
+        }
+        this.questionCount$.next(newCount);
     }
 }

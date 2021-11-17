@@ -4,6 +4,7 @@ import { ClassListItemDto } from '@app/api/models';
 import { ClassesService, SessionsService } from '@app/api/services';
 import { ErrorHandlingService, trackProcessing } from '@pulse/sdk';
 import { lastValueFrom, Observable } from 'rxjs';
+import { InstructorSessionService } from '../../services/instructor-session.service';
 
 @Component({
     selector: 'app-start-session',
@@ -20,6 +21,7 @@ export class StartSessionComponent {
     constructor(
         private classesService: ClassesService,
         private sessionsService: SessionsService,
+        private sessionService: InstructorSessionService,
         private errorHandlingService: ErrorHandlingService,
         private router: Router
     ) {
@@ -44,6 +46,7 @@ export class StartSessionComponent {
                     body: { classId: this.selectedClass.id },
                 })
             );
+            this.sessionService.session$.next(null);
             this.router.navigate(['instructor', 'session'], {
                 replaceUrl: true,
             });

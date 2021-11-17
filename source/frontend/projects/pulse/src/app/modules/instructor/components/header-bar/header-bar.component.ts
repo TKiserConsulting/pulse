@@ -27,7 +27,7 @@ export class HeaderBarComponent {
             },
             {
                 label: 'Sign Out',
-                command: () => this.router.navigate(['signout']),
+                command: () => this.signout(),
             },
         ];
 
@@ -40,7 +40,12 @@ export class HeaderBarComponent {
         return this.sessionService.profileImageTimestamp$;
     }
 
-    navigateProfile() {
+    private navigateProfile() {
         this.router.navigate(['instructor', 'profile'], { replaceUrl: true });
+    }
+
+    private signout() {
+        this.sessionService.question$.next(null);
+        this.router.navigate(['signout']);
     }
 }

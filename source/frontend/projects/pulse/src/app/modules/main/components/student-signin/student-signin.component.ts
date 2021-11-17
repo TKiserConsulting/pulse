@@ -6,6 +6,7 @@ import {
     Validators,
 } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { AuthService } from '@app/shared/services/auth.service';
 import { StudentAuthService } from '@app/shared/services/student-auth.service';
 import { ErrorHandlingService, trackProcessing } from '@pulse/sdk';
 import { MessageService } from 'primeng/api';
@@ -28,6 +29,7 @@ export class StudentSigninComponent implements OnInit {
         private formBuilder: FormBuilder,
         private route: ActivatedRoute,
         private router: Router,
+        private auth: AuthService,
         private authService: StudentAuthService,
         private messageService: MessageService,
         private errorHandlingService: ErrorHandlingService
@@ -38,6 +40,8 @@ export class StudentSigninComponent implements OnInit {
     }
 
     ngOnInit() {
+        this.auth.clearAuth();
+
         this.returnUrl = this.route.snapshot.queryParamMap.get('return') || '';
 
         const sessionEnded = this.route.snapshot.queryParamMap.has('ended');

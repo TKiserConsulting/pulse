@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { Identity } from '@app/shared/models/auth.models';
 import { AuthService } from '@app/shared/services/auth.service';
+import { InstructorSessionService } from '../../services/instructor-session.service';
 
 @Component({
     selector: 'app-dashboard',
@@ -11,7 +12,11 @@ import { AuthService } from '@app/shared/services/auth.service';
 export class DashboardComponent {
     user: Identity | null = null;
 
-    constructor(private authService: AuthService, private router: Router) {
+    constructor(
+        private authService: AuthService,
+        private router: Router,
+        private sessionService: InstructorSessionService
+    ) {
         this.authService.identity$.subscribe((i) => {
             this.user = i;
         });
@@ -19,6 +24,13 @@ export class DashboardComponent {
 
     navigateSettings() {
         this.router.navigate(['instructor', 'settings'], { replaceUrl: true });
+    }
+
+    navigateClasses() {
+        this.sessionService.session$.next(null);
+        this.router.navigate(['instructor'], {
+            replaceUrl: true,
+        });
     }
 
     navigateReports() {
