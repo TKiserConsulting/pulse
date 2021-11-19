@@ -5,7 +5,7 @@ import { SessionsService } from '@app/api/services';
 import { SessionUtilsService } from '@app/modules/main/services/session-utils.service';
 import { AuthService } from '@app/shared/services/auth.service';
 import * as signalR from '@microsoft/signalr';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, Subject } from 'rxjs';
 
 @Injectable({
     providedIn: 'root',
@@ -13,11 +13,9 @@ import { BehaviorSubject } from 'rxjs';
 export class InstructorSessionService {
     public session$ = new BehaviorSubject<ActiveSessionDetailsDto | null>(null);
 
-    public emoticonTap$ = new BehaviorSubject<string | null>(null);
+    public emoticonTap$ = new Subject<string>();
 
-    public question$ = new BehaviorSubject<SessionQuestionDetailsDto | null>(
-        null
-    );
+    public question$ = new Subject<SessionQuestionDetailsDto>();
 
     public profileImageTimestamp$ = new BehaviorSubject<string>('');
 

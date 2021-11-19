@@ -45,7 +45,6 @@ export class HeaderBarComponent {
     }
 
     private signout() {
-        this.sessionService.question$.next(null);
         this.router.navigate(['signout']);
     }
 }
