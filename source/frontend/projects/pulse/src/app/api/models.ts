@@ -9,6 +9,8 @@ export { ClassDetailsDto } from './models/class-details-dto';
 export { ClassUpsertDto } from './models/class-upsert-dto';
 export { InstructorEmoticonListItemDto } from './models/instructor-emoticon-list-item-dto';
 export { InstructorEmoticonsUpdateDto } from './models/instructor-emoticons-update-dto';
+export { InstructorSettingsDetailsDto } from './models/instructor-settings-details-dto';
+export { InstructorSettingsUpdateDto } from './models/instructor-settings-update-dto';
 export { InstructorProfileDetailsDto } from './models/instructor-profile-details-dto';
 export { InstructorProfileUpdateDto } from './models/instructor-profile-update-dto';
 export { IHeaderDictionary } from './models/i-header-dictionary';

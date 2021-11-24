@@ -1,7 +1,7 @@
 /* tslint:disable */
 /* eslint-disable */
 export interface SessionEmoticonDetailsDto {
-  color: number;
+  color: string;
   instructorEmoticonId: string;
   tapCount: number;
   title: string;

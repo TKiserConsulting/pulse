@@ -73,6 +73,9 @@ namespace Pulse.Persistence
 
         public DbSet<EmoticonTap> EmoticonTaps { get; set; }
 
+        // settings
+        public DbSet<InstructorSettings> InstructorSettings { get; set; }
+
         public async Task<T> LoadAsync<T>(Guid id, CancellationToken cancellationToken) where T : class
         {
             return await this.LoadAsync<T, Guid>(id, cancellationToken);

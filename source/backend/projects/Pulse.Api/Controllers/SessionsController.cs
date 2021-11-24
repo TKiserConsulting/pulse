@@ -12,6 +12,7 @@ namespace Pulse.Api.Controllers
     using Data.Auth;
     using Extensions;
     using Hubs;
+    using Managers;
     using MassTransit;
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.AspNetCore.SignalR;
@@ -27,16 +28,19 @@ namespace Pulse.Api.Controllers
     public class SessionsController : BaseDbCrudController<Session, SessionListItemDto, SessionDetailsDto, SessionCreateDto, SessionCreateDto>
     {
         private readonly AuthManager authManager;
+        private readonly SessionManager sessionManager;
         private readonly IHubContext<StudentHub, IStudentHubClient> studentHub;
 
         public SessionsController(
             PulseDbContext db,
             IMapper mapper,
             AuthManager authManager,
+            SessionManager sessionManager,
             IHubContext<StudentHub, IStudentHubClient> studentHub)
             : base(db, mapper)
         {
             this.authManager = authManager;
+            this.sessionManager = sessionManager;
             this.studentHub = studentHub;
         }
 
@@ -44,11 +48,12 @@ namespace Pulse.Api.Controllers
         public async Task<ActiveSessionDetailsDto> GetActiveSession(CancellationToken cancellationToken)
         {
             var instance = await this.Db.Sessions
-                .AsNoTracking()
                 .FirstOrDefaultAsync(m => m.Class.InstructorId == this.authManager.UserId && m.Finished == null,
                     cancellationToken);
 
-            if (instance == null)
+            if (instance == null ||
+                await this.sessionManager.FinishExpiredSession(instance, this.authManager.UserId,
+                    cancellationToken) == null)
             {
                 return null;
             }

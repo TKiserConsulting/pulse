@@ -21,6 +21,7 @@
                     class="p-button-rounded"
                     [ngStyle]="getButtonStyle(item)"
                     (click)="tap(item)"
+                    [disabled]="tapDisabled"
                 ></button>
             </div>
             <div class="flex justify-content-center mb-3">

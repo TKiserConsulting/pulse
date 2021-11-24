@@ -1,7 +1,7 @@
-<div *ngIf="data; else loadingBlock" class="flex flex-column mt-2">
-    <div class="text-2xl">{{ title }}</div>
+<div *ngIf="data; else loadingBlock" class="flex flex-column">
+    <header class="page-header">{{ title }}</header>
 
-    <div class="flex flex-column w-full mt-3">
+    <div class="flex flex-column w-full">
         <div class="text-l font-semibold mb-1">Emoticon Taps</div>
         <p-chart
             type="line"

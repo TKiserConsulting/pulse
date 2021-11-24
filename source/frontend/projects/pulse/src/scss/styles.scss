@@ -16,3 +16,30 @@ input.p-inputnumber-input.price {
         display: none;
     }
 }
+
+.page-header {
+    color: var(--gray-700);
+    font-size: 1.5rem;
+    margin-top: 0.5rem;
+    margin-bottom: 0.75rem;
+}
+
+.section-header,
+.panel > header {
+    color: var(--gray-700);
+    font-size: 1.05rem;
+    font-weight: 600;
+    margin-bottom: 0.25rem;
+}
+
+.panel {
+    transition: 0.1s ease-in-out;
+    padding: 1rem;
+    background: var(--surface-0);
+    border-radius: 8px;
+    box-shadow: 0 0 25px rgb(0 0 0 / 5%);
+
+    &:hover {
+        box-shadow: 0 0 25px rgb(0 0 0 / 10%);
+    }
+}

@@ -7,7 +7,7 @@
 
 <p-overlayPanel #overlayPanel [showCloseIcon]="true" (onShow)="onShow()">
     <ng-template pTemplate>
-        <h3>Select Class</h3>
+        <header class="page-header">Select class</header>
         <ng-container *ngIf="classes$ | async as classes; else loadingBlock">
             <p-listbox
                 [options]="classes"

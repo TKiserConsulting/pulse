@@ -1,6 +1,7 @@
 export { CheckinService } from './services/checkin.service';
 export { ClassesService } from './services/classes.service';
 export { EmoticonsService } from './services/emoticons.service';
+export { InstructorSettingsService } from './services/instructor-settings.service';
 export { ProfilesService } from './services/profiles.service';
 export { QuestionsService } from './services/questions.service';
 export { ReportsService } from './services/reports.service';

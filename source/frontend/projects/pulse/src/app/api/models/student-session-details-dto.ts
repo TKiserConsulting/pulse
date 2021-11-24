@@ -6,6 +6,7 @@ import { SessionQuestionDetailsDto } from './session-question-details-dto';
 export interface StudentSessionDetailsDto {
   activeCheckin?: null | SessionCheckinDetailsDto;
   code: string;
+  emoticonTapDelaySeconds: number;
   emoticons: Array<InstructorEmoticonListItemDto>;
   id: string;
   questions?: null | Array<SessionQuestionDetailsDto>;

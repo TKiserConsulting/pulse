@@ -71,9 +71,9 @@ export class ReportViewComponent implements OnInit {
             this.reportsService.sessionReport({ sessionId: sessionId })
         );
 
-        this.title = new Date(this.data.session?.created || '').toLocaleString(
-            'en-US'
-        );
+        this.title = `${this.data.class.name}, ${new Date(
+            this.data.session?.created || ''
+        ).toLocaleString('en-US')}`;
 
         this.buildChartData();
 

@@ -4,6 +4,7 @@ namespace Pulse.Api.Configuration
     using Business;
     using Common.Managers;
     using DryIoc;
+    using Managers;
     using Microsoft.Extensions.DependencyInjection;
     using Persistence.Configuration;
     using Webfarm.Sdk.Common;
@@ -16,7 +17,8 @@ namespace Pulse.Api.Configuration
         {
             container.RegisterLogging();
             container.Register<IExecutionContext, ExecutionContextProxy>(Reuse.Singleton);
-            container.Register<AuthManager, AuthManager>(Reuse.Singleton);
+            container.Register<AuthManager>(Reuse.Singleton);
+            container.Register<SessionManager>(Reuse.Transient);
 
             container.Resolve<PersistenceCompositionModule>();
             container.Resolve<BusinessCompositionModule>();

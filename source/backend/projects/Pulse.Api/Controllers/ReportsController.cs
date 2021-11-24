@@ -10,6 +10,7 @@ namespace Pulse.Api.Controllers
     using Data.Auth;
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.EntityFrameworkCore;
+    using Models.Classes;
     using Models.Emoticons;
     using Models.Reports;
     using Models.Sessions;
@@ -55,6 +56,7 @@ namespace Pulse.Api.Controllers
 
             var result = new SessionReportResultDto
             {
+                Class = this.mapper.Map<ClassListItemDto>(session.Class),
                 Session = this.mapper.Map<SessionListItemDto>(session),
                 IntervalMinutes = 5
             };

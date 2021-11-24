@@ -1,4 +1,6 @@
-<p-card *ngIf="profile" header="Profile">
+<header class="page-header">Profile</header>
+
+<div *ngIf="profile" class="panel">
     <div class="flex align-items-center mb-3">
         <img
             [src]="getImageLink() | profileImage | async"
@@ -118,57 +120,19 @@
                     refControlName="state"
                 ></app-validation-message>
             </div>
-            <div class="col-12">
-                <button
-                    (click)="save()"
-                    pButton
-                    class="p-button-primary"
-                    label="Save"
-                ></button>
-                <button
-                    pButton
-                    type="button"
-                    label="Cancel"
-                    class="ml-2"
-                    (click)="cancel()"
-                ></button>
-            </div>
         </div>
     </form>
 
-    <!-- <div class="p-md-6 p-col-12">
-        <h1>Change Password</h1>
-        <form [formGroup]="frmPassword" novalidate>
-            <div class="p-fluid">
-                <div class="p-field">
-                    <label for="oldPassword">Old Password *</label>
-                    <input id="oldPassword" type="password" pInputText trim="blur" formControlName="oldPassword"
-                            maxlength="100">
-                    <app-validation-message refControlName="oldPassword"></app-validation-message>
-                </div>
-
-                <div class="p-field">
-                    <label for="newPassword">New Password *</label>
-                    <input id="newPassword" type="password" pInputText trim="blur" formControlName="newPassword"
-                            maxlength="100">
-                    <app-validation-message refControlName="newPassword"></app-validation-message>
-                </div>
-
-                <div class="p-field">
-                    <label for="role">Confirm Password *</label>
-                    <input id="passwordConfirm" type="password" pInputText trim="blur" formControlName="passwordConfirm"
-                            maxlength="50" autocomplete="new-password">
-                    <app-validation-message refControlName="passwordConfirm"></app-validation-message>
-                </div>
-        
-                <div class="p-grid p-jc-end">
-                    <div class="p-col-6">
-                        <button (click)="password()" pButton class="p-button-primary" label="Change"></button>
-                    </div>
-                </div>        
-            </div>
-        </form>
-    </div> -->
-</p-card>
+    <footer>
+        <button pButton type="button" label="Save" (click)="save()"></button>
+        <button
+            pButton
+            type="button"
+            label="Cancel"
+            class="ml-2"
+            (click)="cancel()"
+        ></button>
+    </footer>
+</div>
 
 <app-block-ui [blocked]="processing"></app-block-ui>

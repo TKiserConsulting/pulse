@@ -14,6 +14,7 @@ namespace Pulse.Api.Controllers
     using Data;
     using Data.Auth;
     using Hubs;
+    using Managers;
     using MassTransit;
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
@@ -40,6 +41,7 @@ namespace Pulse.Api.Controllers
         private readonly PulseDbContext db;
         private readonly IMapper mapper;
         private readonly AuthManager authManager;
+        private readonly SessionManager sessionManager;
         private readonly IHubContext<InstructorHub, IInstructorHubClient> instructorHub;
 
         public StudentsController(
@@ -47,12 +49,14 @@ namespace Pulse.Api.Controllers
             PulseDbContext db,
             IMapper mapper,
             AuthManager authManager,
+            SessionManager sessionManager,
             IHubContext<InstructorHub, IInstructorHubClient> instructorHub)
         {
             this.configuration = configuration;
             this.db = db;
             this.mapper = mapper;
             this.authManager = authManager;
+            this.sessionManager = sessionManager;
             this.instructorHub = instructorHub;
         }
 
@@ -60,13 +64,15 @@ namespace Pulse.Api.Controllers
         [HttpPost("signin")]
         public async Task<JoinSessionResultDto> Signin(JoinSessionRequestDto model, CancellationToken cancellationToken)
         {
-            var sessionId =
+            var session =
                 await this.db.Sessions
                     .Where(m => m.Code == model.SessionCode && m.Finished == null)
-                    .Select(m => m.SessionId)
+                    .Include(m => m.Class)
                     .FirstOrDefaultAsync(cancellationToken);
 
-            if (sessionId == Guid.Empty)
+            if (session == null ||
+                await this.sessionManager.FinishExpiredSession(session, session.Class.InstructorId,
+                    cancellationToken) == null)
             {
                 throw new UnauthenticatedException($"There is no active session for code '{model.SessionCode}'");
             }
@@ -76,7 +82,7 @@ namespace Pulse.Api.Controllers
             await this.db.SessionStudents.AddAsync(new SessionStudent
             {
                 Id = sessionStudentId,
-                SessionId = sessionId,
+                SessionId = session.Id,
                 CreatedBy = sessionStudentId.ToString()
             }, cancellationToken);
             await this.db.SaveChangesAsync(cancellationToken);
@@ -92,11 +98,11 @@ namespace Pulse.Api.Controllers
                     AccessToken = accessToken,
                     RefreshToken = refreshToken
                 },
-                SessionId = sessionId,
+                SessionId = session.Id,
                 SessionStudentId = sessionStudentId
             };
 
-            await this.instructorHub.Clients.Group(sessionId.ToString()).StudentJoin(sessionStudentId);
+            await this.instructorHub.Clients.Group(session.Id.ToString()).StudentJoin(sessionStudentId);
 
             return signinResult;
         }
@@ -150,6 +156,12 @@ namespace Pulse.Api.Controllers
                 .ToListAsync(cancellationToken);
 
             model.Questions = this.mapper.Map<SessionQuestionDetailsDto[]>(questions);
+
+            var instructorSettings = await this.db.InstructorSettings
+                .AsNoTracking()
+                .FirstOrDefaultAsync(m => m.InstructorId == instance.Class.InstructorId, cancellationToken);
+
+            model.EmoticonTapDelaySeconds = instructorSettings?.EmoticonTapDelaySeconds ?? InstructorSettings.DefaultEmoticonTapDelaySeconds;
 
             return model;
         }

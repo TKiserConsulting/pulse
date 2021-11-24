@@ -1,10 +1,20 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { InstructorEmoticonListItemDto } from '@app/api/models';
+import {
+    InstructorEmoticonListItemDto,
+    InstructorSettingsDetailsDto,
+} from '@app/api/models';
 import { EmoticonsService } from '@app/api/services/emoticons.service';
 import { firstValueFrom } from 'rxjs';
 import { ErrorHandlingService, trackProcessing } from '@pulse/sdk';
 import { MessageService } from 'primeng/api';
+import {
+    FormBuilder,
+    FormControl,
+    FormGroup,
+    Validators,
+} from '@angular/forms';
+import { InstructorSettingsService } from '@app/api/services';
 
 @Component({
     selector: 'app-settings',
@@ -12,35 +22,56 @@ import { MessageService } from 'primeng/api';
     styleUrls: ['./settings.component.scss'],
 })
 export class SettingsComponent implements OnInit {
+    settings: InstructorSettingsDetailsDto | null = null;
+
     emoticons: InstructorEmoticonListItemDto[] | null = null;
 
     model: any;
 
     processing = false;
 
+    frm: FormGroup;
+
     constructor(
+        private formBuilder: FormBuilder,
         private messageService: MessageService,
         private emoticonsService: EmoticonsService,
+        private settingsService: InstructorSettingsService,
         private router: Router,
         private errorHandlingService: ErrorHandlingService
-    ) {}
+    ) {
+        this.frm = this.formBuilder.group({
+            sessionTimeoutHours: new FormControl('', [
+                Validators.required,
+                Validators.maxLength(5),
+            ]),
+            emoticonTapDelaySeconds: new FormControl('', [
+                Validators.required,
+                Validators.maxLength(5),
+            ]),
+        });
+    }
 
     async ngOnInit(): Promise<void> {
-        this.emoticons = await firstValueFrom(this.emoticonsService.list());
+        this.settingsService.load().subscribe((value) => {
+            this.settings = value;
+            this.frm.patchValue(this.settings);
+        });
 
-        this.model = this.emoticons.reduce(
-            (obj, item) =>
-                Object.assign(obj, {
-                    [item.id]: {
-                        id: item.id,
-                        title: item.title,
-                        color: item.color,
-                    },
-                }),
-            {}
-        );
-
-        console.log('Model: ', this.model);
+        this.emoticonsService.list().subscribe((value) => {
+            this.emoticons = value;
+            this.model = this.emoticons.reduce(
+                (obj, item) =>
+                    Object.assign(obj, {
+                        [item.id]: {
+                            id: item.id,
+                            title: item.title,
+                            color: item.color,
+                        },
+                    }),
+                {}
+            );
+        });
     }
 
     onColor(event: any) {
@@ -48,7 +79,25 @@ export class SettingsComponent implements OnInit {
     }
 
     @trackProcessing('processing')
-    async save() {
+    async saveSettings() {
+        try {
+            await firstValueFrom(
+                this.settingsService.update({
+                    body: { ...this.frm.value },
+                })
+            );
+
+            this.messageService.add({
+                severity: 'success',
+                detail: 'Settings updated',
+            });
+        } catch (err: any) {
+            await this.errorHandlingService.populateDefault(err);
+        }
+    }
+
+    @trackProcessing('processing')
+    async saveEmoticons() {
         if (!this.emoticons) {
             return;
         }
@@ -67,10 +116,8 @@ export class SettingsComponent implements OnInit {
 
             this.messageService.add({
                 severity: 'success',
-                detail: 'Settings updated successully',
+                detail: 'Emoticons updated',
             });
-
-            this.navigateMainScreen();
         } catch (err: any) {
             await this.errorHandlingService.populateDefault(err);
         }

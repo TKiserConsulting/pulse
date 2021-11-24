@@ -19,5 +19,8 @@ namespace Pulse.Api.Models.Students
         public SessionCheckinDetailsDto ActiveCheckin { get; set; }
 
         public SessionQuestionDetailsDto[] Questions { get; set; }
+
+        [Required]
+        public decimal EmoticonTapDelaySeconds { get; set; }
     }
 }

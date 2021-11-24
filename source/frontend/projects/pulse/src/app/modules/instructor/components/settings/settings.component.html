@@ -1,9 +1,69 @@
-<h1>Settings</h1>
+<header class="page-header">Settings</header>
 
-<p-card *ngIf="emoticons" header="">
-    <ng-template pTemplate="header">
-        <div class="text-xl font-semibold pl-3 pt-2">Edit Emoticons</div>
-    </ng-template>
+<div class="panel">
+    <header>Timeouts</header>
+
+    <form [formGroup]="frm" novalidate>
+        <div class="formgrid grid mt-4">
+            <div class="field col-12 md:col-6">
+                <label for="sessionTimeoutHours">Session duration limit</label>
+                <p-inputNumber
+                    id="sessionTimeoutHours"
+                    formControlName="sessionTimeoutHours"
+                    mode="decimal"
+                    [maxFractionDigits]="0"
+                    suffix=" hours"
+                    [showButtons]="true"
+                    [step]="1"
+                    [min]="1"
+                    [max]="6"
+                    class="inputfield w-full"
+                ></p-inputNumber>
+                <app-validation-message
+                    refControlName="sessionTimeoutHours"
+                ></app-validation-message>
+            </div>
+            <div class="field col-12 md:col-6">
+                <label for="emoticonTapDelaySeconds">Emoticon tap delay</label>
+                <p-inputNumber
+                    id="emoticonTapDelaySeconds"
+                    formControlName="emoticonTapDelaySeconds"
+                    mode="decimal"
+                    [maxFractionDigits]="0"
+                    suffix=" seconds"
+                    [showButtons]="true"
+                    [step]="2"
+                    [min]="2"
+                    [max]="10"
+                    class="inputfield w-full"
+                ></p-inputNumber>
+                <app-validation-message
+                    refControlName="emoticonTapDelaySeconds"
+                ></app-validation-message>
+            </div>
+        </div>
+    </form>
+
+    <footer>
+        <button
+            pButton
+            type="button"
+            label="Save"
+            (click)="saveSettings()"
+        ></button>
+
+        <!-- <button
+            pButton
+            type="button"
+            label="Cancel"
+            class="ml-2"
+            (click)="cancel()"
+        ></button> -->
+    </footer>
+</div>
+
+<div *ngIf="emoticons" class="panel mt-4">
+    <header>Emoticons</header>
 
     <div *ngFor="let item of emoticons; let i = index" style="width: 500px">
         <div class="formgrid grid">
@@ -29,17 +89,22 @@
         </div>
     </div>
 
-    <ng-template pTemplate="footer">
-        <button pButton type="button" label="Save" (click)="save()"></button>
-
+    <footer>
         <button
+            pButton
+            type="button"
+            label="Save"
+            (click)="saveEmoticons()"
+        ></button>
+
+        <!-- <button
             pButton
             type="button"
             label="Cancel"
             class="ml-2"
             (click)="cancel()"
-        ></button>
-    </ng-template>
-</p-card>
+        ></button> -->
+    </footer>
+</div>
 
 <app-block-ui [blocked]="processing"></app-block-ui>

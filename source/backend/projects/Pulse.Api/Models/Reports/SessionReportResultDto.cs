@@ -2,11 +2,15 @@ namespace Pulse.Api.Models.Reports
 {
     using System;
     using System.ComponentModel.DataAnnotations;
+    using Classes;
     using Emoticons;
     using Sessions;
 
     public class SessionReportResultDto
     {
+        [Required]
+        public ClassListItemDto Class { get; set; }
+
         [Required]
         public SessionListItemDto Session { get; set; }
 

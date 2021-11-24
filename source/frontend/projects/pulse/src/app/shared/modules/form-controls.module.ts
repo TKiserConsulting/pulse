@@ -34,6 +34,7 @@ import { GridComponent } from '../components/grid.component';
 import { SafePipe } from '../pipes/safe.pipe';
 import { EmptyComponent } from '../components/empty.component';
 import { EssentialControlsModule } from './essential-controls.module';
+import { InputNumberModule } from 'primeng/inputnumber';
 
 @NgModule({
     imports: [
@@ -53,6 +54,7 @@ import { EssentialControlsModule } from './essential-controls.module';
         ContextMenuModule,
         ConfirmPopupModule,
         ScrollPanelModule,
+        InputNumberModule,
         EssentialControlsModule,
     ],
     declarations: [
@@ -101,6 +103,7 @@ import { EssentialControlsModule } from './essential-controls.module';
         ContextMenuModule,
         ConfirmPopupModule,
         ScrollPanelModule,
+        InputNumberModule,
         EssentialControlsModule,
     ],
     schemas: [CUSTOM_ELEMENTS_SCHEMA],

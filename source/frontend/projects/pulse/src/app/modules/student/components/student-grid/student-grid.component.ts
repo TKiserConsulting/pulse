@@ -6,7 +6,7 @@ import { StudentSessionDetailsDto } from '@app/api/models/student-session-detail
 import { StudentsService } from '@app/api/services';
 import { trackProcessing } from '@pulse/sdk';
 import { ConfirmationService, MessageService } from 'primeng/api';
-import { Observable } from 'rxjs';
+import { delay, Observable, Subject, tap } from 'rxjs';
 import { StudentSessionService } from '../../services/student-session.service';
 
 @Component({
@@ -24,7 +24,11 @@ export class StudentGridComponent implements OnInit, OnDestroy {
         'background-color': 'blue',
     };
 
-    public processing = false;
+    processing = false;
+
+    tapDisabled = false;
+
+    private tapClick = new Subject<void>();
 
     constructor(
         private apiService: StudentsService,
@@ -36,6 +40,22 @@ export class StudentGridComponent implements OnInit, OnDestroy {
         this.session$ = this.sessionService.session$;
         this.activeCheckin$ = this.sessionService.activeCheckin$;
         this.sessionService.loadSession();
+
+        // disable tap clicks by the configured delay interval
+        this.tapClick
+            .pipe(
+                tap(() => {
+                    this.tapDisabled = true;
+                }),
+                delay(
+                    (this.sessionService.session$.value
+                        ?.emoticonTapDelaySeconds || 4) * 1000
+                ),
+                tap(() => {
+                    this.tapDisabled = false;
+                })
+            )
+            .subscribe(() => {});
     }
 
     async ngOnInit() {
@@ -66,6 +86,8 @@ export class StudentGridComponent implements OnInit, OnDestroy {
             life: 2000,
             detail: item.title,
         });
+
+        this.tapClick.next();
 
         await this.apiService
             .tap({
